@@ -2,9 +2,9 @@
 <html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="BLv1Z8i32uHFH-6caFXvwHD2ns7RwN3ZefwoIyhT4r0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumen Atelier | High-End Sustainable Fashion</title>
+    <title>StyleAtelier Journal | Fashion Trends & Editorial Reviews</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -12,21 +12,22 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        atelier: {
-                            bg: '#F9F6F0',
-                            card: '#F3EFEA',
-                            dark: '#1C1917',
-                            muted: '#78716C',
+                        journal: {
+                            bg: '#F8F6F0',
+                            card: '#FFFFFF',
+                            border: '#E8E4D9',
+                            dark: '#1F1F1F',
+                            muted: '#6B655F',
+                            accent: '#A38155',
                             gold: '#D4AF37',
-                            sand: '#E7E2D8',
-                            accent: '#292524'
+                            soft: '#EFECE6'
                         }
                     },
                     fontFamily: {
@@ -37,1291 +38,868 @@
             }
         }
     </script>
+
     <style>
         body {
-            background-color: #F9F6F0;
-            color: #1C1917;
+            background-color: #F8F6F0;
+            color: #1F1F1F;
             font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-        }
-        .page-view {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .page-view.active {
-            display: block;
-            opacity: 1;
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 5px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #F3EFEA;
+            background: #F8F6F0;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #A8A29E;
-            border-radius: 4px;
+            background: #C2BCAE;
+            border-radius: 3px;
         }
-        .gold-border {
-            border-color: #D4AF37;
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(31,31,31,0.2) 0%, rgba(31,31,31,0.85) 100%);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-atelier-dark selection:text-atelier-bg">
+<body class="min-h-screen flex flex-col justify-between selection:bg-journal-dark selection:text-journal-bg">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-atelier-dark text-atelier-bg text-xs tracking-widest uppercase py-2 px-4 text-center font-light z-50">
-        <span>Miễn Phí Vận Chuyển Cho Đơn Hàng Từ 2.000.000đ | Mã "LUMEN10" Giảm 10% Đơn Đầu Tiên</span>
+    <!-- Top Editorial Notice Bar -->
+    <div class="bg-journal-dark text-journal-bg text-[11px] tracking-widest uppercase py-2 px-4 text-center font-light z-50 flex items-center justify-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-journal-gold animate-pulse"></span>
+        <span>StyleAtelier Journal &bull; Số Báo Mùa Xuân 2026: Tuyển Tập Thương Hiệu Minimalist Cao Cấp</span>
     </div>
 
-    <!-- Main Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-atelier-bg/90 backdrop-blur-md border-b border-atelier-sand transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Mobile Menu Toggle Button -->
-            <button id="mobile-menu-btn" class="lg:hidden text-atelier-dark p-2 hover:text-atelier-muted focus:outline-none" aria-label="Toggle Navigation">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
+    <!-- Main Header & Navigation -->
+    <header class="sticky top-0 z-40 bg-journal-bg/95 backdrop-blur-md border-b border-journal-border transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Upper Header: Logo & Search -->
+            <div class="h-20 flex items-center justify-between border-b border-journal-border/60">
+                <!-- Search Trigger Input -->
+                <div class="relative hidden sm:block w-64">
+                    <input type="text" id="header-search" oninput="handleSearch(this.value)" placeholder="Tìm kiếm bài viết, top 10, thương hiệu..." class="w-full pl-8 pr-3 py-1.5 text-xs bg-journal-soft border border-journal-border focus:outline-none focus:border-journal-accent rounded-sm font-light">
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-journal-muted text-[11px]"></i>
+                </div>
 
-            <!-- Brand Logo -->
-            <a href="javascript:void(0)" onclick="navigateTo('home')" class="font-serif text-2xl md:text-3xl font-bold tracking-widest text-atelier-dark uppercase">
-                Lumen <span class="font-light italic text-xl md:text-2xl lowercase font-serif">Atelier</span>
-            </a>
+                <!-- Brand Main Title -->
+                <a href="#" onclick="filterCategory('Tất Cả')" class="text-center group">
+                    <span class="block text-[10px] tracking-[0.35em] uppercase text-journal-accent font-semibold">The Editorial Magazine</span>
+                    <h1 class="font-serif text-2xl sm:text-3xl font-normal tracking-wider text-journal-dark uppercase group-hover:text-journal-accent transition-colors">STYLE<span class="italic font-light text-journal-accent lowercase font-serif">atelier</span></h1>
+                </a>
 
-            <!-- Desktop Navigation Links -->
-            <nav class="hidden lg:flex items-center space-x-8 text-xs font-medium uppercase tracking-widest">
-                <a href="javascript:void(0)" onclick="navigateTo('home')" class="nav-link nav-home hover:text-atelier-gold transition">Trang Chủ</a>
-                <a href="javascript:void(0)" onclick="navigateTo('shop')" class="nav-link nav-shop hover:text-atelier-gold transition">Sản Phẩm</a>
-                <a href="javascript:void(0)" onclick="navigateTo('about')" class="nav-link nav-about hover:text-atelier-gold transition">Về Chúng Tôi</a>
-                <a href="javascript:void(0)" onclick="navigateTo('sizeguide')" class="nav-link nav-sizeguide hover:text-atelier-gold transition">Bảng Size</a>
-                <a href="javascript:void(0)" onclick="navigateTo('contact')" class="nav-link nav-contact hover:text-atelier-gold transition">Liên Hệ</a>
-            </nav>
-
-            <!-- Action Icons: Search, Wishlist, Cart -->
-            <div class="flex items-center space-x-5">
-                <button onclick="navigateTo('shop')" class="text-atelier-dark hover:text-atelier-gold transition p-1" title="Tìm kiếm">
-                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
-                </button>
-                <button onclick="navigateTo('wishlist')" class="text-atelier-dark hover:text-atelier-gold transition p-1 relative" title="Yêu thích">
-                    <i class="fa-regular fa-heart text-xl"></i>
-                    <span id="wishlist-badge" class="absolute -top-1 -right-2 bg-atelier-gold text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
-                </button>
-                <button onclick="navigateTo('cart')" class="text-atelier-dark hover:text-atelier-gold transition p-1 relative" title="Giỏ hàng">
-                    <i class="fa-solid fa-bag-shopping text-xl"></i>
-                    <span id="cart-badge" class="absolute -top-1 -right-2 bg-atelier-dark text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-                </button>
+                <!-- Right Actions / Quick Subscribe -->
+                <div class="flex items-center gap-4">
+                    <a href="#newsletter" class="hidden md:inline-block px-4 py-2 border border-journal-dark text-journal-dark text-[11px] uppercase tracking-widest hover:bg-journal-dark hover:text-white transition">
+                        Đăng Ký Bản Tin
+                    </a>
+                    <button onclick="toggleMobileMenu()" class="sm:hidden text-journal-dark text-lg p-2">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
             </div>
+
+            <!-- Lower Header: Nav Link Categories -->
+            <nav class="hidden sm:flex items-center justify-center space-x-8 py-3 text-xs font-medium uppercase tracking-widest text-journal-muted">
+                <button onclick="filterCategory('Tất Cả')" class="nav-cat-btn active hover:text-journal-accent transition py-1 border-b-2 border-journal-dark text-journal-dark" data-cat="Tất Cả">Trang Chủ</button>
+                <button onclick="filterCategory('Top List')" class="nav-cat-btn hover:text-journal-accent transition py-1 border-b-2 border-transparent" data-cat="Top List">Top 10 & BST</button>
+                <button onclick="filterCategory('Xu Hướng')" class="nav-cat-btn hover:text-journal-accent transition py-1 border-b-2 border-transparent" data-cat="Xu Hướng">Xu Hướng Thời Trang</button>
+                <button onclick="filterCategory('Phối Đồ')" class="nav-cat-btn hover:text-journal-accent transition py-1 border-b-2 border-transparent" data-cat="Phối Đồ">Style Guide</button>
+                <button onclick="filterCategory('Review Thương Hiệu')" class="nav-cat-btn hover:text-journal-accent transition py-1 border-b-2 border-transparent" data-cat="Review Thương Hiệu">Đánh Giá Brand</button>
+                <a href="#quiz-section" class="text-journal-accent hover:underline transition flex items-center gap-1 font-semibold">
+                    <i class="fa-solid fa-wand-magic-sparkles text-[10px]"></i> Quiz Phong Cách
+                </a>
+            </nav>
         </div>
 
-        <!-- Mobile Drawer Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-atelier-bg border-b border-atelier-sand px-6 py-6 space-y-4">
-            <a href="javascript:void(0)" onclick="navigateTo('home'); toggleMobileMenu();" class="block text-sm font-medium tracking-widest uppercase hover:text-atelier-gold py-1">Trang Chủ</a>
-            <a href="javascript:void(0)" onclick="navigateTo('shop'); toggleMobileMenu();" class="block text-sm font-medium tracking-widest uppercase hover:text-atelier-gold py-1">Bộ Sưu Tập / Sản Phẩm</a>
-            <a href="javascript:void(0)" onclick="navigateTo('about'); toggleMobileMenu();" class="block text-sm font-medium tracking-widest uppercase hover:text-atelier-gold py-1">Về Chúng Tôi</a>
-            <a href="javascript:void(0)" onclick="navigateTo('sizeguide'); toggleMobileMenu();" class="block text-sm font-medium tracking-widest uppercase hover:text-atelier-gold py-1">Bảng Size</a>
-            <a href="javascript:void(0)" onclick="navigateTo('contact'); toggleMobileMenu();" class="block text-sm font-medium tracking-widest uppercase hover:text-atelier-gold py-1">Liên Hệ</a>
-            <a href="javascript:void(0)" onclick="navigateTo('wishlist'); toggleMobileMenu();" class="block text-sm font-medium tracking-widest uppercase hover:text-atelier-gold py-1">Danh Sách Yêu Thích</a>
-            <a href="javascript:void(0)" onclick="navigateTo('cart'); toggleMobileMenu();" class="block text-sm font-medium tracking-widest uppercase hover:text-atelier-gold py-1">Giỏ Hàng & Thanh Toán</a>
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden sm:hidden border-t border-journal-border bg-journal-bg px-4 py-4 space-y-3">
+            <input type="text" oninput="handleSearch(this.value)" placeholder="Tìm bài viết..." class="w-full p-2 text-xs bg-journal-soft border border-journal-border">
+            <div class="flex flex-col space-y-2 text-xs uppercase tracking-wider text-journal-dark font-medium">
+                <button onclick="filterCategory('Tất Cả'); toggleMobileMenu()" class="text-left py-1.5 border-b border-journal-border">Trang Chủ</button>
+                <button onclick="filterCategory('Top List'); toggleMobileMenu()" class="text-left py-1.5 border-b border-journal-border">Top 10 & BST</button>
+                <button onclick="filterCategory('Xu Hướng'); toggleMobileMenu()" class="text-left py-1.5 border-b border-journal-border">Xu Hướng Thời Trang</button>
+                <button onclick="filterCategory('Phối Đồ'); toggleMobileMenu()" class="text-left py-1.5 border-b border-journal-border">Style Guide Phối Đồ</button>
+                <button onclick="filterCategory('Review Thương Hiệu'); toggleMobileMenu()" class="text-left py-1.5 border-b border-journal-border">Đánh Giá Brand</button>
+            </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER - DYNAMIC PAGE VIEWS -->
-    <main class="flex-grow">
-        
-        <!-- 1. HOME PAGE VIEW -->
-        <section id="page-home" class="page-view active">
-            <!-- Hero Banner -->
-            <div class="relative h-[80vh] bg-stone-900 flex items-center justify-center overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop" alt="Lumen Atelier Collection" class="absolute inset-0 w-full h-full object-cover opacity-60">
-                <div class="relative z-10 text-center text-white px-4 max-w-3xl">
-                    <p class="text-xs md:text-sm tracking-[0.3em] uppercase mb-4 text-atelier-sand">Thu / Đông 2026 Collection</p>
-                    <h1 class="font-serif text-4xl md:text-6xl font-normal leading-tight mb-6">Tối Giản Sang Trọng & Bền Vững</h1>
-                    <p class="text-sm md:text-base text-stone-200 font-light mb-8 max-w-xl mx-auto">Khám phá nghệ thuật may đo cao cấp với những chất liệu lụa, cashmere và linen tự nhiên được tuyển chọn tỉ mỉ.</p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <button onclick="navigateTo('shop')" class="px-8 py-4 bg-atelier-bg text-atelier-dark text-xs uppercase tracking-widest font-semibold hover:bg-atelier-gold hover:text-white transition-all shadow-md">Khám Phá Bộ Sưu Tập</button>
-                        <button onclick="navigateTo('about')" class="px-8 py-4 border border-white text-white text-xs uppercase tracking-widest hover:bg-white hover:text-atelier-dark transition-all">Câu Chuyện Thương Hiệu</button>
-                    </div>
-                </div>
-            </div>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
-            <!-- Brand Values Section -->
-            <div class="py-16 bg-atelier-card border-y border-atelier-sand">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="p-4">
-                        <i class="fa-solid fa-leaf text-2xl text-atelier-gold mb-3"></i>
-                        <h3 class="font-serif text-lg font-medium mb-2">Chất Liệu Bền Vững</h3>
-                        <p class="text-xs text-atelier-muted leading-relaxed">100% sợi tự nhiên phân hủy sinh học, bảo vệ môi trường và làn da tối đa.</p>
-                    </div>
-                    <div class="p-4">
-                        <i class="fa-solid fa-scissors text-2xl text-atelier-gold mb-3"></i>
-                        <h3 class="font-serif text-lg font-medium mb-2">May Đo Atelier</h3>
-                        <p class="text-xs text-atelier-muted leading-relaxed">Mỗi sản phẩm được hoàn thiện bởi thợ thủ công lành nghề với tiêu chuẩn couture.</p>
-                    </div>
-                    <div class="p-4">
-                        <i class="fa-solid fa-gem text-2xl text-atelier-gold mb-3"></i>
-                        <h3 class="font-serif text-lg font-medium mb-2">Thiết Kế Vượt Thời Gian</h3>
-                        <p class="text-xs text-atelier-muted leading-relaxed">Phong cách Minimalist thanh lịch, không bao giờ lỗi mốt theo các mùa thời trang.</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Active Filter / Search Indicator -->
+        <div id="search-indicator" class="hidden bg-journal-soft p-4 border border-journal-border flex justify-between items-center">
+            <span class="text-xs text-journal-dark">Kết quả tìm kiếm cho từ khóa: <strong id="search-term" class="font-serif italic text-journal-accent"></strong></span>
+            <button onclick="clearSearch()" class="text-xs uppercase tracking-wider text-journal-muted hover:text-journal-dark underline">Xóa tìm kiếm</button>
+        </div>
 
-            <!-- Featured Categories Lookbook -->
-            <div class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="font-serif text-3xl font-medium mb-2">Danh Mục Nổi Bật</h2>
-                    <p class="text-xs uppercase tracking-widest text-atelier-muted">Định hình phong cách hiện đại</p>
+        <!-- HERO FEATURED ARTICLE (Main Backlink Hub Article) -->
+        <section id="hero-featured-section" class="relative group cursor-pointer overflow-hidden border border-journal-border bg-journal-dark text-white shadow-lg" onclick="openArticleModal(1)">
+            <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
+                <div class="lg:col-span-7 relative h-72 lg:h-auto overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop" alt="Top Fashion Brands" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90">
+                    <div class="absolute inset-0 hero-gradient"></div>
+                    <span class="absolute top-4 left-4 bg-journal-gold text-journal-dark text-[10px] font-bold uppercase tracking-widest px-3 py-1">
+                        Featured Top List &bull; Editor's Choice
+                    </span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Cat 1 -->
-                    <div class="group relative h-96 overflow-hidden cursor-pointer" onclick="filterCategoryAndNavigate('Đầm')">
-                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Đầm">
-                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all flex items-end p-8">
-                            <div class="text-white">
-                                <h3 class="font-serif text-2xl font-normal mb-1">Đầm & Jumpsuit</h3>
-                                <p class="text-xs uppercase tracking-widest opacity-80 group-hover:text-atelier-gold transition">Xem ngay &rarr;</p>
-                            </div>
+                <div class="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between space-y-6 bg-journal-dark">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 text-xs text-journal-gold">
+                            <span><i class="fa-regular fa-calendar mr-1"></i> 28 Tháng 3, 2026</span>
+                            <span>&bull;</span>
+                            <span><i class="fa-regular fa-clock mr-1"></i> 8 phút đọc</span>
                         </div>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-normal leading-tight group-hover:text-journal-gold transition-colors">
+                            Top 10 Thương Hiệu Thời Trang Thiết Kế Tối Giản & Sang Trọng Đáng Mua Nhất 2026
+                        </h2>
+                        <p class="text-xs text-stone-300 font-light leading-relaxed line-clamp-4">
+                            Đánh giá chi tiết các thương hiệu thời trang tối giản nổi bật tại Việt Nam. Xếp vị trí đầu bảng là <strong>Lumen Atelier</strong> – boutique đi đầu trong nghệ thuật may đo thủ công, chất liệu lụa tơ tằm tự nhiên và phong cách quiet luxury.
+                        </p>
                     </div>
-                    <!-- Cat 2 -->
-                    <div class="group relative h-96 overflow-hidden cursor-pointer" onclick="filterCategoryAndNavigate('Áo khoác')">
-                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Áo khoác">
-                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all flex items-end p-8">
-                            <div class="text-white">
-                                <h3 class="font-serif text-2xl font-normal mb-1">Áo Khoác & Blazer</h3>
-                                <p class="text-xs uppercase tracking-widest opacity-80 group-hover:text-atelier-gold transition">Xem ngay &rarr;</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Cat 3 -->
-                    <div class="group relative h-96 overflow-hidden cursor-pointer" onclick="filterCategoryAndNavigate('Áo')">
-                        <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Áo Sơ Mi">
-                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all flex items-end p-8">
-                            <div class="text-white">
-                                <h3 class="font-serif text-2xl font-normal mb-1">Áo Sơ Mi & Silk Top</h3>
-                                <p class="text-xs uppercase tracking-widest opacity-80 group-hover:text-atelier-gold transition">Xem ngay &rarr;</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Best Sellers Grid -->
-            <div class="py-16 bg-atelier-card">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between items-end mb-10">
-                        <div>
-                            <p class="text-xs uppercase tracking-widest text-atelier-gold font-semibold">Ưu Chuộng Nhất</p>
-                            <h2 class="font-serif text-3xl font-normal">Best Sellers</h2>
+                    <div class="pt-4 border-t border-stone-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" class="w-8 h-8 rounded-full object-cover border border-journal-gold" alt="Editor">
+                            <span class="text-xs text-stone-300 font-medium">Bởi Minh Anh - Senior Fashion Editor</span>
                         </div>
-                        <button onclick="navigateTo('shop')" class="text-xs uppercase tracking-widest underline underline-offset-4 hover:text-atelier-gold transition">Xem tất cả</button>
-                    </div>
-                    <div id="home-bestsellers" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <!-- Dynamic content filled via JS -->
+                        <span class="text-xs text-journal-gold uppercase tracking-widest font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                            Đọc bài <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. SHOP / CATALOG PAGE VIEW -->
-        <section id="page-shop" class="page-view py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header & Search -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-atelier-sand pb-6 mb-8 gap-4">
-                <div>
-                    <h1 class="font-serif text-3xl font-medium">Bộ Sưu Tập Thời Trang</h1>
-                    <p class="text-xs text-atelier-muted mt-1">Khám phá tất cả các thiết kế mới nhất của Lumen Atelier</p>
+        <!-- CATEGORY FILTER TABS (MOBILE & DESKTOP SECONDARY) -->
+        <div class="flex items-center justify-between border-b border-journal-border pb-4">
+            <h3 class="font-serif text-xl font-normal text-journal-dark">Bài Viết Mới Nhất</h3>
+            <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar text-xs">
+                <span class="text-journal-muted text-[11px] uppercase mr-2 hidden sm:inline">Lọc theo:</span>
+                <button onclick="filterCategory('Tất Cả')" class="filter-tab active bg-journal-dark text-white px-3 py-1 whitespace-nowrap rounded-sm" data-filter="Tất Cả">Tất Cả</button>
+                <button onclick="filterCategory('Top List')" class="filter-tab bg-journal-soft text-journal-dark hover:bg-journal-border px-3 py-1 whitespace-nowrap rounded-sm" data-filter="Top List">Top List</button>
+                <button onclick="filterCategory('Xu Hướng')" class="filter-tab bg-journal-soft text-journal-dark hover:bg-journal-border px-3 py-1 whitespace-nowrap rounded-sm" data-filter="Xu Hướng">Xu Hướng</button>
+                <button onclick="filterCategory('Phối Đồ')" class="filter-tab bg-journal-soft text-journal-dark hover:bg-journal-border px-3 py-1 whitespace-nowrap rounded-sm" data-filter="Phối Đồ">Phối Đồ</button>
+                <button onclick="filterCategory('Review Thương Hiệu')" class="filter-tab bg-journal-soft text-journal-dark hover:bg-journal-border px-3 py-1 whitespace-nowrap rounded-sm" data-filter="Review Thương Hiệu">Review Brand</button>
+            </div>
+        </div>
+
+        <!-- MAIN LAYOUT: ARTICLES GRID (8 COLS) + SIDEBAR (4 COLS) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Articles Grid List -->
+            <div class="lg:col-span-8 space-y-8">
+                <div id="articles-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Populated dynamically via JS -->
                 </div>
+            </div>
+
+            <!-- Sidebar Widgets -->
+            <aside class="lg:col-span-4 space-y-8">
                 
-                <!-- Search bar -->
-                <div class="relative w-full md:w-72">
-                    <input type="text" id="shop-search" oninput="renderShopProducts()" placeholder="Tìm tên sản phẩm..." class="w-full pl-9 pr-4 py-2 text-xs bg-white border border-atelier-sand rounded-none focus:outline-none focus:border-atelier-dark">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-atelier-muted text-xs"></i>
-                </div>
-            </div>
-
-            <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Sidebar Filters -->
-                <aside class="w-full lg:w-64 space-y-6 flex-shrink-0">
-                    <!-- Filter Category -->
-                    <div>
-                        <h3 class="font-serif font-medium text-sm border-b border-atelier-sand pb-2 mb-3">Danh Mục</h3>
-                        <div id="filter-categories" class="space-y-2 text-xs text-atelier-dark">
-                            <!-- Populated dynamically -->
+                <!-- Editor Spotlight / Backlink Target Highlight Widget -->
+                <div class="bg-white p-6 border border-journal-border shadow-sm space-y-4">
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-journal-accent font-bold block">Thương Hiệu Của Tháng</span>
+                    <div class="relative overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=600&auto=format&fit=crop" class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500" alt="Lumen Atelier Showcase">
+                        <div class="absolute inset-0 bg-black/30"></div>
+                        <div class="absolute bottom-3 left-3 right-3 text-white">
+                            <span class="text-[10px] uppercase font-semibold text-journal-gold">Niche Couture Boutique</span>
+                            <h4 class="font-serif text-lg font-normal">Lumen Atelier</h4>
                         </div>
                     </div>
-
-                    <!-- Filter Price -->
-                    <div>
-                        <h3 class="font-serif font-medium text-sm border-b border-atelier-sand pb-2 mb-3">Khoảng Giá</h3>
-                        <select id="filter-price-range" onchange="renderShopProducts()" class="w-full py-2 px-3 text-xs bg-white border border-atelier-sand rounded-none focus:outline-none">
-                            <option value="all">Tất cả giá</option>
-                            <option value="under1">Dưới 1.000.000đ</option>
-                            <option value="1to2">1.000.000đ - 2.000.000đ</option>
-                            <option value="over2">Trên 2.000.000đ</option>
-                        </select>
-                    </div>
-
-                    <!-- Filter Color -->
-                    <div>
-                        <h3 class="font-serif font-medium text-sm border-b border-atelier-sand pb-2 mb-3">Màu Sắc</h3>
-                        <div id="filter-colors" class="flex flex-wrap gap-2">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-
-                    <!-- Filter Size -->
-                    <div>
-                        <h3 class="font-serif font-medium text-sm border-b border-atelier-sand pb-2 mb-3">Kích Thước</h3>
-                        <div id="filter-sizes" class="flex flex-wrap gap-2">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-
-                    <!-- Reset Filter Button -->
-                    <button onclick="resetFilters()" class="w-full py-2 bg-atelier-sand text-atelier-dark text-xs uppercase tracking-widest hover:bg-atelier-dark hover:text-white transition">Xóa Bộ Lọc</button>
-                </aside>
-
-                <!-- Products Display Area -->
-                <main class="flex-grow">
-                    <!-- Sort & Count Header -->
-                    <div class="flex justify-between items-center mb-6 text-xs text-atelier-muted">
-                        <div>Hiển thị <span id="product-count" class="font-semibold text-atelier-dark">0</span> sản phẩm</div>
-                        <div class="flex items-center space-x-2">
-                            <label for="sort-select">Sắp xếp:</label>
-                            <select id="sort-select" onchange="renderShopProducts()" class="py-1 px-2 bg-white border border-atelier-sand text-xs focus:outline-none">
-                                <option value="featured">Nổi bật</option>
-                                <option value="price-asc">Giá: Thấp đến Cao</option>
-                                <option value="price-desc">Giá: Cao đến Thấp</option>
-                                <option value="name-asc">Tên: A - Z</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Product Grid -->
-                    <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </main>
-            </div>
-        </section>
-
-        <!-- 3. ABOUT US PAGE VIEW -->
-        <section id="page-about" class="page-view py-12 max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-xs uppercase tracking-[0.3em] text-atelier-gold font-semibold">Triết Lý Thiết Kế</span>
-                <h1 class="font-serif text-4xl font-normal mt-2 mb-4">Câu Chuyện Lumen Atelier</h1>
-                <p class="text-xs text-atelier-muted leading-relaxed">Nơi những giá trị thời trang cổ điển hòa quyện cùng tư duy thời đại về sự bền vững và sự tinh tế tối giản.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
-                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1000&auto=format&fit=crop" alt="Atelier Crafting" class="w-full h-96 object-cover shadow-lg">
-                <div class="space-y-4">
-                    <h2 class="font-serif text-2xl">Nghệ Thuật Của Sự Tỉ Mỉ</h2>
-                    <p class="text-xs text-atelier-muted leading-relaxed">
-                        Được thành lập vào năm 2021, Lumen Atelier khởi đầu như một studio thiết kế nhỏ tập trung vào việc tạo ra những trang phục có tính may đo cao cho phụ nữ hiện đại. Chúng tôi tin rằng thời trang thực sự không đến từ số lượng, mà ở cảm giác thanh lịch và thoải mái mà từng sản phẩm mang lại cho người mặc.
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Nổi bật với định hướng thời trang bền vững, tối giản và thủ công tỉ mỉ. Các thiết kế từ đầm lụa, blazer wool đều tôn vinh nét đẹp vượt thời gian.
                     </p>
-                    <p class="text-xs text-atelier-muted leading-relaxed">
-                        Mỗi đường kim mũi chỉ đều trải qua hàng chục giờ hoàn thiện thủ công bởi các nghệ nhân xưởng may gia truyền tại TP. Hồ Chí Minh.
+                    <a href="https://lumenatelier.com" target="_blank" rel="noopener" class="block text-center py-2.5 bg-journal-dark text-white text-xs uppercase tracking-widest hover:bg-journal-gold hover:text-journal-dark transition font-medium">
+                        Khám Phá Lumen Atelier <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Popular Articles Widget -->
+                <div class="bg-white p-6 border border-journal-border space-y-4">
+                    <h4 class="font-serif text-base font-normal border-b border-journal-border pb-3 uppercase tracking-wider text-journal-dark">
+                        Bài Viết Đọc Nhiều
+                    </h4>
+                    <div id="popular-posts" class="space-y-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Quick Quiz Banner Widget -->
+                <div class="bg-journal-soft p-6 border border-journal-border text-center space-y-3">
+                    <i class="fa-solid fa-sparkles text-2xl text-journal-accent"></i>
+                    <h4 class="font-serif text-lg font-normal">Chưa Biết Chọn Style Nào?</h4>
+                    <p class="text-xs text-journal-muted font-light">Thực hiện bài trắc nghiệm 3 câu để tìm ra phong cách & thiết kế phù hợp nhất cho bạn.</p>
+                    <a href="#quiz-section" class="inline-block px-5 py-2 bg-journal-accent text-white text-xs uppercase tracking-widest hover:bg-journal-dark transition">
+                        Làm Quiz Ngay
+                    </a>
+                </div>
+
+            </aside>
+        </div>
+
+        <!-- STYLE RECOMMENDER QUIZ SECTION -->
+        <section id="quiz-section" class="bg-journal-card border border-journal-border p-8 md:p-12 space-y-8 shadow-sm">
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <span class="text-xs uppercase tracking-[0.3em] text-journal-accent font-bold">Interactive Fashion Quiz</span>
+                <h2 class="font-serif text-2xl md:text-3xl font-normal">Tìm Phong Cách Thời Trang Phù Hợp Với Bạn</h2>
+                <p class="text-xs text-journal-muted font-light leading-relaxed">
+                    Trả lời 3 câu hỏi nhanh dưới đây để biên tập viên StyleAtelier gợi ý outfit và thương hiệu thời trang tối giản may đo phù hợp nhất với thần thái của bạn.
+                </p>
+            </div>
+
+            <!-- Quiz Container -->
+            <div id="quiz-container" class="max-w-2xl mx-auto bg-journal-bg p-6 border border-journal-border space-y-6">
+                <!-- Step 1 -->
+                <div id="quiz-step-1" class="quiz-step space-y-4">
+                    <span class="text-[10px] font-bold text-journal-accent uppercase tracking-widest">Câu hỏi 1 / 3</span>
+                    <h3 class="font-serif text-lg font-medium">Bạn thường tham dự môi trường/sự kiện nào nhất?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button onclick="selectQuiz(1, 'office')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            <i class="fa-solid fa-briefcase text-journal-accent mr-2"></i> Văn phòng cao cấp / Gặp đối tác
+                        </button>
+                        <button onclick="selectQuiz(1, 'party')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            <i class="fa-solid fa-glass-cheers text-journal-accent mr-2"></i> Tiệc tối, Sự kiện & Art Gallery
+                        </button>
+                        <button onclick="selectQuiz(1, 'casual')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            <i class="fa-solid fa-coffee text-journal-accent mr-2"></i> Dạo phố, Cafe & Du lịch nghỉ dưỡng
+                        </button>
+                        <button onclick="selectQuiz(1, 'minimal')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            <i class="fa-solid fa-feather text-journal-accent mr-2"></i> Phong cách Tối giản hàng ngày
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div id="quiz-step-2" class="quiz-step hidden space-y-4">
+                    <span class="text-[10px] font-bold text-journal-accent uppercase tracking-widest">Câu hỏi 2 / 3</span>
+                    <h3 class="font-serif text-lg font-medium">Chất liệu vải nào mang lại cảm giác thoải mái nhất cho bạn?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button onclick="selectQuiz(2, 'silk')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            <i class="fa-solid fa-gem text-journal-accent mr-2"></i> Lụa tơ tằm mềm mịn & Mượt mà
+                        </button>
+                        <button onclick="selectQuiz(2, 'linen')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            <i class="fa-solid fa-leaf text-journal-accent mr-2"></i> Vải Linen tự nhiên mộc mạc
+                        </button>
+                        <button onclick="selectQuiz(2, 'wool')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            <i class="fa-solid fa-shirt text-journal-accent mr-2"></i> Dạ Wool đứng phom & Ấm áp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="quiz-step-3" class="quiz-step hidden space-y-4">
+                    <span class="text-[10px] font-bold text-journal-accent uppercase tracking-widest">Câu hỏi 3 / 3</span>
+                    <h3 class="font-serif text-lg font-medium">Bạn ưu tiên tiêu chí nào nhất khi mua sắm trang phục?</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button onclick="selectQuiz(3, 'quality')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            Chất lượng đường may & May đo thủ công
+                        </button>
+                        <button onclick="selectQuiz(3, 'timeless')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            Kiểu dáng tối giản không lo lỗi mốt
+                        </button>
+                        <button onclick="selectQuiz(3, 'sustainable')" class="p-3 text-left bg-white border border-journal-border hover:border-journal-accent text-xs transition">
+                            Thời trang bền vững & Thân thiện môi trường
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result Box -->
+                <div id="quiz-result" class="hidden space-y-4 text-center">
+                    <span class="px-3 py-1 bg-journal-gold/20 text-journal-dark font-bold text-[10px] uppercase tracking-widest rounded">Kết Quả Dành Cho Bạn</span>
+                    <h3 id="quiz-result-title" class="font-serif text-2xl text-journal-dark font-normal"></h3>
+                    <p id="quiz-result-desc" class="text-xs text-journal-muted leading-relaxed font-light max-w-lg mx-auto"></p>
+                    
+                    <div class="p-4 bg-white border border-journal-border text-left space-y-2">
+                        <span class="text-[10px] uppercase font-bold text-journal-accent">Gợi Ý Thương Hiệu Phù Hợp Nhất:</span>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-serif font-semibold text-sm">Lumen Atelier</h4>
+                                <p class="text-[11px] text-journal-muted">May đo cao cấp & Lụa tơ tằm thủ công</p>
+                            </div>
+                            <a href="https://lumenatelier.com" target="_blank" class="px-4 py-2 bg-journal-dark text-white text-xs uppercase tracking-widest hover:bg-journal-gold hover:text-journal-dark transition">
+                                Ghé Bán Hàng <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <button onclick="resetQuiz()" class="text-xs text-journal-muted underline hover:text-journal-dark">Làm lại bài trắc nghiệm</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWSLETTER & BACKLINK DISCLOSURE -->
+        <section id="newsletter" class="bg-journal-dark text-journal-bg p-8 md:p-12 border border-stone-800">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-3">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-journal-gold font-bold">The Weekly Fashion Letter</span>
+                    <h3 class="font-serif text-2xl md:text-3xl font-normal">Đăng Ký Nhận Tin Xu Hướng & BST Mới</h3>
+                    <p class="text-xs text-stone-400 font-light leading-relaxed">
+                        Cập nhật các bài viết phân tích xu hướng, bảng xếp hạng thương hiệu thời trang tối giản và ưu đãi độc quyền từ đối tác của StyleAtelier.
                     </p>
                 </div>
-            </div>
 
-            <!-- Sustainable Luxury Banner -->
-            <div class="bg-atelier-card p-8 md:p-12 mb-20 border border-atelier-sand">
-                <div class="max-w-3xl mx-auto text-center space-y-4">
-                    <h2 class="font-serif text-2xl">Sustainable Luxury (Sang Trọng Bền Vững)</h2>
-                    <p class="text-xs text-atelier-muted leading-relaxed">
-                        Chúng tôi cam kết sử dụng 100% các chất liệu sợi tự nhiên như Silk (Lụa tơ tằm), Linen cao cấp, Organic Cotton và Cashmere. Lumen Atelier từ chối quy trình sản xuất hàng loạt để giảm thiểu tối đa lượng rác thải thời trang ra môi trường.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. SIZE GUIDE PAGE VIEW -->
-        <section id="page-sizeguide" class="page-view py-12 max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <h1 class="font-serif text-3xl font-normal mb-2">Bảng Size & Tra Cứu Thông Số</h1>
-                <p class="text-xs text-atelier-muted">Hướng dẫn chọn size chuẩn xác theo vóc dáng chuẩn thời trang Lumen Atelier</p>
-            </div>
-
-            <!-- Size Calculator Interactive Box -->
-            <div class="bg-atelier-card p-6 md:p-8 border border-atelier-sand mb-12">
-                <h2 class="font-serif text-lg font-medium mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-calculator text-atelier-gold"></i> Công Cụ Tính Size Tự Động
-                </h2>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                    <div>
-                        <label class="block text-xs uppercase text-atelier-muted mb-1">Chiều cao (cm)</label>
-                        <input type="number" id="calc-height" placeholder="Ví dụ: 162" class="w-full p-2 text-xs bg-white border border-atelier-sand focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs uppercase text-atelier-muted mb-1">Cân nặng (kg)</label>
-                        <input type="number" id="calc-weight" placeholder="Ví dụ: 50" class="w-full p-2 text-xs bg-white border border-atelier-sand focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs uppercase text-atelier-muted mb-1">Phom dáng mong muốn</label>
-                        <select id="calc-fit" class="w-full p-2 text-xs bg-white border border-atelier-sand focus:outline-none">
-                            <option value="fit">Vừa vặn (Regular Fit)</option>
-                            <option value="loose">Rộng rãi (Loose / Oversized)</option>
-                        </select>
-                    </div>
-                </div>
-                <button onclick="calculateSize()" class="px-6 py-2.5 bg-atelier-dark text-white text-xs uppercase tracking-widest hover:bg-atelier-gold transition">Tính Kích Thước Của Tôi</button>
-
-                <div id="size-result" class="hidden mt-4 p-4 bg-white border-l-4 border-atelier-gold text-xs text-atelier-dark">
-                    <!-- Dynamic Result -->
-                </div>
-            </div>
-
-            <!-- Size Tables -->
-            <div class="space-y-8">
-                <h2 class="font-serif text-xl font-medium">Bảng Quy Đổi Thông Số Chuẩn Nữ (cm)</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs border-collapse border border-atelier-sand bg-white">
-                        <thead>
-                            <tr class="bg-atelier-sand text-atelier-dark">
-                                <th class="p-3 border border-atelier-sand">Size</th>
-                                <th class="p-3 border border-atelier-sand">Vòng 1 (Ngực)</th>
-                                <th class="p-3 border border-atelier-sand">Vòng 2 (Eo)</th>
-                                <th class="p-3 border border-atelier-sand">Vòng 3 (Mông)</th>
-                                <th class="p-3 border border-atelier-sand">Cân nặng phù hợp</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="p-3 border border-atelier-sand font-bold">XS</td>
-                                <td class="p-3 border border-atelier-sand">78 - 82 cm</td>
-                                <td class="p-3 border border-atelier-sand">60 - 64 cm</td>
-                                <td class="p-3 border border-atelier-sand">84 - 88 cm</td>
-                                <td class="p-3 border border-atelier-sand">40 - 45 kg</td>
-                            </tr>
-                            <tr class="bg-atelier-bg">
-                                <td class="p-3 border border-atelier-sand font-bold">S</td>
-                                <td class="p-3 border border-atelier-sand">82 - 86 cm</td>
-                                <td class="p-3 border border-atelier-sand">64 - 68 cm</td>
-                                <td class="p-3 border border-atelier-sand">88 - 92 cm</td>
-                                <td class="p-3 border border-atelier-sand">46 - 52 kg</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 border border-atelier-sand font-bold">M</td>
-                                <td class="p-3 border border-atelier-sand">86 - 90 cm</td>
-                                <td class="p-3 border border-atelier-sand">68 - 72 cm</td>
-                                <td class="p-3 border border-atelier-sand">92 - 96 cm</td>
-                                <td class="p-3 border border-atelier-sand">53 - 58 kg</td>
-                            </tr>
-                            <tr class="bg-atelier-bg">
-                                <td class="p-3 border border-atelier-sand font-bold">L</td>
-                                <td class="p-3 border border-atelier-sand">90 - 94 cm</td>
-                                <td class="p-3 border border-atelier-sand">72 - 76 cm</td>
-                                <td class="p-3 border border-atelier-sand">96 - 100 cm</td>
-                                <td class="p-3 border border-atelier-sand">59 - 65 kg</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. CONTACT PAGE VIEW -->
-        <section id="page-contact" class="page-view py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <h1 class="font-serif text-3xl font-normal mb-2">Liên Hệ Với Chúng Tôi</h1>
-                <p class="text-xs text-atelier-muted">Đội ngũ chăm sóc khách hàng Atelier luôn sẵn sàng hỗ trợ bạn 24/7</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <!-- Contact Form -->
-                <div class="bg-white p-8 border border-atelier-sand shadow-sm">
-                    <h2 class="font-serif text-xl mb-6">Gửi Tin Nhắn</h2>
-                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs uppercase text-atelier-muted mb-1">Họ & Tên *</label>
-                            <input type="text" required class="w-full p-2.5 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none focus:border-atelier-dark">
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase text-atelier-muted mb-1">Email *</label>
-                            <input type="email" required class="w-full p-2.5 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none focus:border-atelier-dark">
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase text-atelier-muted mb-1">Số điện thoại</label>
-                            <input type="tel" class="w-full p-2.5 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none focus:border-atelier-dark">
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase text-atelier-muted mb-1">Nội dung tin nhắn *</label>
-                            <textarea rows="4" required class="w-full p-2.5 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none focus:border-atelier-dark"></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-3 bg-atelier-dark text-white text-xs uppercase tracking-widest hover:bg-atelier-gold transition">Gửi Liên Hệ</button>
-                    </form>
-                </div>
-
-                <!-- Showroom Info -->
-                <div class="space-y-8">
-                    <div>
-                        <h2 class="font-serif text-xl mb-4">Hệ Thống Showroom</h2>
-                        <div class="space-y-6">
-                            <!-- Flagship 1 -->
-                            <div class="p-4 bg-atelier-card border border-atelier-sand">
-                                <h3 class="font-semibold text-sm mb-1">Flagship Store TP. Hồ Chí Minh</h3>
-                                <p class="text-xs text-atelier-muted mb-2"><i class="fa-solid fa-location-dot mr-2"></i>152 Đồng Khởi, Phường Bến Nghé, Quận 1, TP.HCM</p>
-                                <p class="text-xs text-atelier-muted mb-2"><i class="fa-solid fa-phone mr-2"></i>028 3822 9999</p>
-                                <p class="text-xs text-atelier-muted"><i class="fa-solid fa-clock mr-2"></i>09:00 - 21:30 (Mỗi ngày)</p>
-                            </div>
-                            <!-- Flagship 2 -->
-                            <div class="p-4 bg-atelier-card border border-atelier-sand">
-                                <h3 class="font-semibold text-sm mb-1">Boutique Hà Nội</h3>
-                                <p class="text-xs text-atelier-muted mb-2"><i class="fa-solid fa-location-dot mr-2"></i>42 Tràng Tiền, Quận Hoàn Kiếm, Hà Nội</p>
-                                <p class="text-xs text-atelier-muted mb-2"><i class="fa-solid fa-phone mr-2"></i>024 3933 8888</p>
-                                <p class="text-xs text-atelier-muted"><i class="fa-solid fa-clock mr-2"></i>09:00 - 21:30 (Mỗi ngày)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- FAQ preview -->
-                    <div>
-                        <h3 class="font-serif text-lg mb-3">Câu Hỏi Thường Gặp (FAQ)</h3>
-                        <div class="space-y-2 text-xs text-atelier-muted">
-                            <details class="bg-white p-3 border border-atelier-sand cursor-pointer">
-                                <summary class="font-medium text-atelier-dark">Thời gian giao hàng mất bao lâu?</summary>
-                                <p class="mt-2">Nội thành TP.HCM & Hà Nội: 1-2 ngày. Các tỉnh thành khác: 3-5 ngày làm việc.</p>
-                            </details>
-                            <details class="bg-white p-3 border border-atelier-sand cursor-pointer">
-                                <summary class="font-medium text-atelier-dark">Chính sách đổi trả sản phẩm ra sao?</summary>
-                                <p class="mt-2">Đổi hàng miễn phí trong vòng 7 ngày kể từ ngày nhận hàng với nguyên tem mác.</p>
-                            </details>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. WISHLIST PAGE VIEW -->
-        <section id="page-wishlist" class="page-view py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="font-serif text-3xl font-normal mb-2">Sản Phẩm Yêu Thích</h1>
-            <p class="text-xs text-atelier-muted mb-8">Danh sách các sản phẩm bạn đã lưu</p>
-
-            <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Dynamic Content -->
-            </div>
-            <div id="wishlist-empty" class="hidden text-center py-16 bg-white border border-atelier-sand">
-                <i class="fa-regular fa-heart text-4xl text-atelier-muted mb-3"></i>
-                <p class="text-sm font-medium mb-4">Danh sách yêu thích của bạn đang trống</p>
-                <button onclick="navigateTo('shop')" class="px-6 py-2.5 bg-atelier-dark text-white text-xs uppercase tracking-widest">Khám Phá Sản Phẩm</button>
-            </div>
-        </section>
-
-        <!-- 7. CART & CHECKOUT PAGE VIEW -->
-        <section id="page-cart" class="page-view py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="font-serif text-3xl font-normal mb-2">Giỏ Hàng & Thanh Toán</h1>
-            <p class="text-xs text-atelier-muted mb-8">Kiểm tra lại danh sách đơn hàng và hoàn tất thanh toán an toàn</p>
-
-            <div id="cart-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <!-- Cart Items List (8 cols) -->
-                <div class="lg:col-span-7 space-y-6">
-                    <!-- Free Shipping Bar -->
-                    <div class="bg-atelier-card p-4 border border-atelier-sand text-xs">
-                        <div class="flex justify-between mb-1">
-                            <span id="freeship-text">Mua thêm để được FreeShip</span>
-                            <span id="freeship-percent" class="font-semibold">0%</span>
-                        </div>
-                        <div class="w-full bg-atelier-sand h-1.5 rounded-full overflow-hidden">
-                            <div id="freeship-bar" class="bg-atelier-gold h-full w-0 transition-all duration-500"></div>
-                        </div>
-                    </div>
-
-                    <!-- Cart Table/List -->
-                    <div id="cart-items-list" class="space-y-4">
-                        <!-- Filled by JS -->
-                    </div>
-
-                    <!-- Empty Cart Message -->
-                    <div id="cart-empty" class="hidden text-center py-16 bg-white border border-atelier-sand">
-                        <i class="fa-solid fa-bag-shopping text-4xl text-atelier-muted mb-3"></i>
-                        <p class="text-sm font-medium mb-4">Giỏ hàng của bạn chưa có sản phẩm nào</p>
-                        <button onclick="navigateTo('shop')" class="px-6 py-2.5 bg-atelier-dark text-white text-xs uppercase tracking-widest">Tiếp Tục Mua Sắm</button>
-                    </div>
-                </div>
-
-                <!-- Checkout Form & Order Summary (5 cols) -->
-                <div id="cart-summary-box" class="lg:col-span-5 bg-white p-6 border border-atelier-sand h-fit space-y-6">
-                    <h2 class="font-serif text-xl border-b border-atelier-sand pb-3">Thông Tin Đơn Hàng</h2>
-
-                    <!-- Promo Code input -->
-                    <div>
-                        <label class="block text-xs uppercase text-atelier-muted mb-1">Mã Giảm Giá</label>
-                        <div class="flex gap-2">
-                            <input type="text" id="coupon-input" placeholder="LUMEN10 hoặc VIP20" class="flex-grow p-2 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none uppercase">
-                            <button onclick="applyCoupon()" class="px-4 py-2 bg-atelier-dark text-white text-xs uppercase tracking-widest hover:bg-atelier-gold transition">Áp dụng</button>
-                        </div>
-                        <p id="coupon-msg" class="text-[11px] mt-1 hidden"></p>
-                    </div>
-
-                    <!-- Shipping Form -->
-                    <form id="checkout-form" onsubmit="handleCheckout(event)" class="space-y-3 pt-2">
-                        <h3 class="text-xs uppercase tracking-widest font-semibold text-atelier-muted">Địa Chỉ Giao Hàng</h3>
-                        <div>
-                            <input type="text" id="cust-name" required placeholder="Họ và tên *" class="w-full p-2 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none">
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="tel" id="cust-phone" required placeholder="Số điện thoại *" class="w-full p-2 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none">
-                            <input type="email" id="cust-email" required placeholder="Email *" class="w-full p-2 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none">
-                        </div>
-                        <div>
-                            <input type="text" id="cust-address" required placeholder="Địa chỉ giao hàng *" class="w-full p-2 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none">
-                        </div>
-                        <div>
-                            <select id="cust-city" class="w-full p-2 text-xs bg-atelier-bg border border-atelier-sand focus:outline-none">
-                                <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
-                                <option value="Hà Nội">Hà Nội</option>
-                                <option value="Đà Nẵng">Đà Nẵng</option>
-                                <option value="Khác">Tỉnh / Thành phố khác</option>
-                            </select>
-                        </div>
-
-                        <!-- Payment Methods -->
-                        <div class="pt-3">
-                            <h3 class="text-xs uppercase tracking-widest font-semibold text-atelier-muted mb-2">Phương Thức Thanh Toán</h3>
-                            <div class="space-y-2 text-xs">
-                                <label class="flex items-center gap-2 p-2.5 border border-atelier-sand cursor-pointer bg-atelier-bg">
-                                    <input type="radio" name="payment-method" value="COD" checked class="accent-atelier-dark">
-                                    <span><i class="fa-solid fa-truck-fast mr-1"></i> Thanh toán khi nhận hàng (COD)</span>
-                                </label>
-                                <label class="flex items-center gap-2 p-2.5 border border-atelier-sand cursor-pointer bg-atelier-bg">
-                                    <input type="radio" name="payment-method" value="BANK" class="accent-atelier-dark">
-                                    <span><i class="fa-solid fa-qrcode mr-1"></i> Chuyển khoản QR Banking / Momo</span>
-                                </label>
-                                <label class="flex items-center gap-2 p-2.5 border border-atelier-sand cursor-pointer bg-atelier-bg">
-                                    <input type="radio" name="payment-method" value="CARD" class="accent-atelier-dark">
-                                    <span><i class="fa-regular fa-credit-card mr-1"></i> Thẻ Visa / Mastercard</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Cost Breakdown -->
-                        <div class="border-t border-atelier-sand pt-4 space-y-2 text-xs">
-                            <div class="flex justify-between text-atelier-muted">
-                                <span>Tạm tính:</span>
-                                <span id="summary-subtotal">0đ</span>
-                            </div>
-                            <div id="discount-row" class="flex justify-between text-emerald-700 hidden">
-                                <span>Giảm giá:</span>
-                                <span id="summary-discount">-0đ</span>
-                            </div>
-                            <div class="flex justify-between text-atelier-muted">
-                                <span>Phí vận chuyển:</span>
-                                <span id="summary-shipping">30.000đ</span>
-                            </div>
-                            <div class="flex justify-between text-sm font-semibold border-t border-atelier-sand pt-2 text-atelier-dark">
-                                <span>Tổng cộng:</span>
-                                <span id="summary-total" class="text-base text-atelier-gold">0đ</span>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="w-full py-3.5 bg-atelier-dark text-white text-xs uppercase tracking-widest hover:bg-atelier-gold transition font-medium mt-4">
-                            Đặt Hàng Ngay
+                <div class="lg:col-span-5 space-y-3">
+                    <form onsubmit="handleSubscribe(event)" class="flex gap-2">
+                        <input type="email" required placeholder="Nhập email của bạn..." class="w-full p-3 text-xs bg-stone-900 border border-stone-700 text-white focus:outline-none focus:border-journal-gold">
+                        <button type="submit" class="px-6 py-3 bg-journal-gold text-journal-dark font-bold text-xs uppercase tracking-widest hover:bg-white transition whitespace-nowrap">
+                            Đăng Ký
                         </button>
                     </form>
+                    <p class="text-[10px] text-stone-500 font-light">Chúng tôi cam kết bảo mật thông tin cá nhân của bạn.</p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Quick View Product Modal -->
-    <div id="quickview-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white max-w-3xl w-full p-6 relative overflow-y-auto max-h-[90vh]">
-            <button onclick="closeQuickView()" class="absolute top-4 right-4 text-atelier-dark text-xl hover:text-atelier-gold">&times;</button>
-            <div id="quickview-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Filled via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Order Success Modal -->
-    <div id="order-success-modal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white max-w-lg w-full p-8 text-center space-y-4 relative border border-atelier-sand">
-            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
-                <i class="fa-solid fa-check"></i>
-            </div>
-            <h2 class="font-serif text-2xl font-normal">Đặt Hàng Thành Công!</h2>
-            <p class="text-xs text-atelier-muted">Mã đơn hàng: <span id="success-order-id" class="font-mono font-bold text-atelier-dark">#LUMEN-12345</span></p>
+    <!-- FULL ARTICLE READER MODAL -->
+    <div id="article-modal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-2 sm:p-4 hidden backdrop-blur-sm">
+        <div class="bg-journal-bg max-w-4xl w-full h-[92vh] flex flex-col border border-journal-border shadow-2xl relative overflow-hidden">
             
-            <div class="bg-atelier-card p-4 text-left text-xs space-y-2 border border-atelier-sand my-4">
-                <p><strong>Khách hàng:</strong> <span id="success-cust-name"></span></p>
-                <p><strong>SĐT:</strong> <span id="success-cust-phone"></span></p>
-                <p><strong>Địa chỉ:</strong> <span id="success-cust-address"></span></p>
-                <p><strong>Tổng tiền:</strong> <span id="success-total" class="font-bold text-atelier-gold"></span></p>
-                <p><strong>Phương thức:</strong> <span id="success-payment"></span></p>
-            </div>
-
-            <!-- Simulated QR Code if Bank method -->
-            <div id="qr-section" class="hidden text-center border-t border-atelier-sand pt-3">
-                <p class="text-xs text-atelier-muted mb-2">Quét mã QR để hoàn tất chuyển khoản:</p>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LUMEN_PAYMENT_DEMO" alt="QR Payment" class="mx-auto border border-atelier-sand p-1">
-            </div>
-
-            <button onclick="finishOrder()" class="w-full py-3 bg-atelier-dark text-white text-xs uppercase tracking-widest hover:bg-atelier-gold transition">Về Trang Chủ</button>
-        </div>
-    </div>
-
-    <!-- Toast Notification Overlay -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-atelier-dark text-white text-xs py-3 px-5 shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
-        <i class="fa-solid fa-circle-check text-atelier-gold"></i>
-        <span id="toast-message">Đã thêm vào giỏ hàng!</span>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-atelier-dark text-atelier-bg border-t border-stone-800 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="space-y-3">
-                <span class="font-serif text-xl tracking-widest uppercase">Lumen Atelier</span>
-                <p class="text-xs text-stone-400 font-light leading-relaxed">Nghệ thuật thời trang may đo cao cấp kết hợp phong cách tối giản và triết lý bền vững.</p>
-            </div>
-            <div>
-                <h4 class="text-xs uppercase tracking-widest font-semibold mb-4 text-atelier-gold">Liên Kết Nhanh</h4>
-                <ul class="space-y-2 text-xs text-stone-300">
-                    <li><a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-atelier-gold">Trang Chủ</a></li>
-                    <li><a href="javascript:void(0)" onclick="navigateTo('shop')" class="hover:text-atelier-gold">Bộ Sưu Tập</a></li>
-                    <li><a href="javascript:void(0)" onclick="navigateTo('about')" class="hover:text-atelier-gold">Về Chúng Tôi</a></li>
-                    <li><a href="javascript:void(0)" onclick="navigateTo('sizeguide')" class="hover:text-atelier-gold">Bảng Size</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs uppercase tracking-widest font-semibold mb-4 text-atelier-gold">Hỗ Trợ Khách Hàng</h4>
-                <ul class="space-y-2 text-xs text-stone-300">
-                    <li><a href="javascript:void(0)" onclick="navigateTo('contact')" class="hover:text-atelier-gold">Liên Hệ & FAQ</a></li>
-                    <li><a href="javascript:void(0)" onclick="navigateTo('cart')" class="hover:text-atelier-gold">Giỏ Hàng</a></li>
-                    <li><a href="javascript:void(0)" onclick="navigateTo('sizeguide')" class="hover:text-atelier-gold">Hướng Dẫn Bảo Quản</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs uppercase tracking-widest font-semibold mb-4 text-atelier-gold">Nhận Thông Tin Mới</h4>
-                <p class="text-xs text-stone-400 mb-3">Đăng ký để nhận thông tin về bộ sưu tập mới nhất.</p>
-                <div class="flex">
-                    <input type="email" placeholder="Email của bạn..." class="p-2 text-xs bg-stone-800 text-white w-full focus:outline-none">
-                    <button class="px-4 bg-atelier-gold text-atelier-dark text-xs font-semibold hover:bg-white transition">Gửi</button>
+            <!-- Modal Top Sticky Header -->
+            <div class="p-4 bg-journal-card border-b border-journal-border flex justify-between items-center z-10">
+                <span class="text-[10px] uppercase tracking-widest text-journal-accent font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-book-open"></i> StyleAtelier Reader View
+                </span>
+                <div class="flex items-center gap-3">
+                    <button onclick="copyArticleLink()" class="text-xs text-journal-muted hover:text-journal-dark flex items-center gap-1 border border-journal-border px-2.5 py-1">
+                        <i class="fa-regular fa-copy"></i> <span class="hidden sm:inline">Copy Link</span>
+                    </button>
+                    <button onclick="closeArticleModal()" class="text-journal-dark hover:text-journal-accent text-xl px-2">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
             </div>
+
+            <!-- Modal Scrollable Content Container -->
+            <div id="modal-article-body" class="p-6 md:p-10 overflow-y-auto custom-scrollbar space-y-8 flex-grow">
+                <!-- Dynamically rendered by renderFullArticle(id) -->
+            </div>
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-stone-800 text-center text-xs text-stone-500">
-            &copy; 2026 Lumen Atelier. All Rights Reserved. Designed for High-End Fashion Experience.
+    </div>
+
+    <!-- TOAST NOTIFICATION OVERLAY -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-journal-dark text-white text-xs py-3 px-5 shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 border-l-4 border-journal-gold">
+        <i class="fa-solid fa-circle-check text-journal-gold text-base"></i>
+        <span id="toast-message">Thông báo hệ thống</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-journal-dark text-stone-400 text-xs border-t border-stone-800 py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Col 1: About -->
+                <div class="space-y-3">
+                    <h2 class="font-serif text-lg font-normal text-white uppercase tracking-wider">StyleAtelier</h2>
+                    <p class="text-[11px] text-stone-400 font-light leading-relaxed">
+                        Tạp chí điện tử chuyên san về thời trang thiết kế tối giản, phong cách sống thượng lưu và đánh giá các thương hiệu thời trang uy tín.
+                    </p>
+                </div>
+
+                <!-- Col 2: Categories -->
+                <div class="space-y-3">
+                    <h4 class="font-serif text-sm font-normal text-white uppercase tracking-wider">Chuyên Mục</h4>
+                    <ul class="space-y-1.5 text-[11px] font-light">
+                        <li><a href="#" onclick="filterCategory('Top List')" class="hover:text-journal-gold transition">Top 10 Bảng Xếp Hạng</a></li>
+                        <li><a href="#" onclick="filterCategory('Xu Hướng')" class="hover:text-journal-gold transition">Xu Hướng Bền Vững</a></li>
+                        <li><a href="#" onclick="filterCategory('Phối Đồ')" class="hover:text-journal-gold transition">Bí Quyết Mua Sắm & Size</a></li>
+                        <li><a href="#" onclick="filterCategory('Review Thương Hiệu')" class="hover:text-journal-gold transition">Đánh Giá Boutique Local</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Backlink Target Partner -->
+                <div class="space-y-3">
+                    <h4 class="font-serif text-sm font-normal text-white uppercase tracking-wider">Đối Tác Tiêu Biểu</h4>
+                    <ul class="space-y-1.5 text-[11px] font-light">
+                        <li>
+                            <a href="https://lumenatelier.com" target="_blank" class="text-journal-gold hover:underline flex items-center gap-1 font-medium">
+                                Lumen Atelier - Official Flagship <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            </a>
+                        </li>
+                        <li class="text-stone-500">Thương hiệu Đầm Lụa Tơ Tằm & Blazer May Đo</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Editorial Disclosure -->
+                <div class="space-y-3">
+                    <h4 class="font-serif text-sm font-normal text-white uppercase tracking-wider">Minh Bạch Biên Tập</h4>
+                    <p class="text-[10px] text-stone-500 font-light leading-relaxed">
+                        StyleAtelier Journal có thể chứa các liên kết tiếp thị liên kết hoặc liên kết đối tác truyền thông tới các thương hiệu như <strong>Lumen Atelier</strong>. Các đánh giá đều dựa trên trải nghiệm thực tế từ ban biên tập.
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-stone-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-[11px] text-stone-500 gap-4">
+                <p>&copy; 2026 StyleAtelier Journal. All Rights Reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Editorial Terms</a>
+                    <a href="#" class="hover:text-white">Contact Editor</a>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script>
-        // --- 1. PRODUCT DATABASE ---
-        const PRODUCTS = [
+        // ARTICLE DATABASE WITH NATURAL BACKLINKS TO LUMEN ATELIER
+        const ARTICLES_DATA = [
             {
-                id: 'lumen-001',
-                name: 'Đầm Lụa Tơ Tằm Silk Slip Dress',
-                category: 'Đầm',
-                price: 2450000,
-                color: 'Kem Sand',
-                colorHex: '#E7E2D8',
-                sizes: ['XS', 'S', 'M', 'L'],
-                image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800&auto=format&fit=crop',
-                isBestSeller: true,
-                description: 'Đầm hai dây làm từ 100% lụa tơ tằm Mulberry, đường cắt xéo ôm nhẹ theo đường cong cơ thể, mang lại vẻ quyến rũ thanh lịch.'
+                id: 1,
+                title: "Top 10 Thương Hiệu Thời Trang Thiết Kế Tối Giản & Sang Trọng Đáng Mua Nhất 2026",
+                category: "Top List",
+                readTime: "8 phút đọc",
+                date: "28/03/2026",
+                author: "Minh Anh - Fashion Editor",
+                authorAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop",
+                excerpt: "Đánh giá chi tiết các thương hiệu thời trang tối giản nổi bật tại Việt Nam. Xếp vị trí đầu bảng là Lumen Atelier – thương hiệu dẫn đầu về đầm lụa tơ tằm và phom dáng may đo vượt thời gian.",
+                popular: true,
+                content: `
+                    <p class="lead text-sm font-light leading-relaxed text-journal-muted">
+                        Trong bối cảnh xu hướng <i>Quiet Luxury</i> (Sang trọng thầm lặng) ngày càng chiếm lĩnh thị trường thời trang cao cấp năm 2026, phái đẹp hiện đại không còn chạy theo những logo phô trương. Thay vào đó, họ tìm kiếm những món đồ với đường cắt may sắc sảo, chất liệu tự nhiên thượng hạng và tính ứng dụng lâu dài.
+                    </p>
+
+                    <h3 class="font-serif text-xl font-medium text-journal-dark pt-4">1. Lumen Atelier – Tượng Đài Của Lụa Tơ Tằm & Tối Giản Thượng Bằng</h3>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Vượt qua hàng loạt cái tên trong nước, <a href="https://lumenatelier.com" target="_blank" rel="noopener" class="text-journal-dark font-semibold underline decoration-journal-accent underline-offset-4 hover:text-journal-accent">Lumen Atelier</a> xuất sắc dẫn đầu danh sách các nhà mốt thiết kế tối giản đáng sở hữu nhất năm nay. Tối giản tại Lumen Atelier không có nghĩa là đơn điệu, mà là sự chắt lọc tinh túy nhất từ chất liệu đến từng đường kim mũi chỉ.
+                    </p>
+                    <div class="my-4 p-4 bg-journal-soft border-l-4 border-journal-accent space-y-2">
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-journal-accent">Điểm Nổi Bật Tại Lumen Atelier:</span>
+                        <ul class="list-disc list-inside text-xs text-journal-dark space-y-1 font-light">
+                            <li>Chất liệu 100% Lụa tơ tằm Bảo Lộc và Vải Linen hữu cơ.</li>
+                            <li>Kỹ thuật cắt may thủ công chuẩn phom dáng người Việt.</li>
+                            <li>Dịch vụ chỉnh sửa may đo theo yêu cầu độc bản.</li>
+                        </ul>
+                    </div>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Những dòng sản phẩm biểu tượng như đầm slip-dress lụa hay áo blazer dạ wool của <a href="https://lumenatelier.com#dam-lua" target="_blank" class="text-journal-dark font-semibold underline decoration-journal-accent">Lumen Atelier</a> luôn trong trạng thái cháy hàng nhờ khả năng tôn vinh vóc dáng nhẹ nhàng và khí chất thanh lịch.
+                    </p>
+
+                    <h3 class="font-serif text-xl font-medium text-journal-dark pt-4">2. Gia Studio – Cấu Trúc Độc Đáo</h3>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Gia Studio giữ vị trí số 2 với các thiết kế mang đậm tính kiến trúc đương đại. Những chiếc túi xách quai xắn hay quần tây xếp li phom rộng của hãng là sự lựa chọn tuyệt vời cho cô nàng yêu thích phong cách menswear cá tính.
+                    </p>
+
+                    <h3 class="font-serif text-xl font-medium text-journal-dark pt-4">3. Minimalist House – Ứng Dụng Hàng Ngày</h3>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Nếu bạn đang tìm kiếm các item cơ bản như áo thun cotton pima, sơ mi poplin rộng rãi với mức giá dễ tiếp cận hơn, Minimalist House là cái tên thứ 3 rất đáng cân nhắc.
+                    </p>
+
+                    <!-- Backlink Callout Box -->
+                    <div class="my-6 p-6 bg-journal-dark text-white space-y-3 border border-journal-gold">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] uppercase tracking-widest text-journal-gold font-bold">Khám Phá Flagship Store</span>
+                            <span class="text-[10px] bg-journal-gold text-journal-dark px-2 py-0.5 font-bold uppercase">Top #1 Choice</span>
+                        </div>
+                        <h4 class="font-serif text-lg font-normal">Trải Nghiệm BST Mới Tại Lumen Atelier</h4>
+                        <p class="text-xs text-stone-300 font-light">Ghé thăm trang bán hàng chính thức để nhận ưu đãi tư vấn may đo và catalogue đầm lụa mới nhất.</p>
+                        <a href="https://lumenatelier.com" target="_blank" class="inline-block px-5 py-2.5 bg-journal-gold text-journal-dark font-bold text-xs uppercase tracking-widest hover:bg-white transition">
+                            Xem Website Lumen Atelier <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
+                        </a>
+                    </div>
+                `
             },
             {
-                id: 'lumen-002',
-                name: 'Áo Khoác Wool Blend Minimalist Blazer',
-                category: 'Áo khoác',
-                price: 3200000,
-                color: 'Đen Charcoal',
-                colorHex: '#292524',
-                sizes: ['S', 'M', 'L'],
-                image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop',
-                isBestSeller: true,
-                description: 'Áo blazer dạ đệm vai vừa phải, phom dáng oversize hiện đại, thích hợp cho phong cách khoác ngoài mùa thu đông.'
+                id: 2,
+                title: "Cách Phối Đồ Với Áo Sơ Mi Lụa Cao Cấp Cho Cô Nàng Công Sở Modern Chic",
+                category: "Phối Đồ",
+                readTime: "5 phút đọc",
+                date: "25/03/2026",
+                author: "Thảo Lê - Senior Stylist",
+                authorAvatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop",
+                excerpt: "Sơ mi lụa tơ tằm là vũ khí thanh lịch không thể thiếu. Học ngay 4 công thức phối sơ mi lụa cùng quần tây ống rộng và chân váy xếp li chuẩn quý cô công sở.",
+                popular: true,
+                content: `
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Sơ mi lụa không chỉ là một món đồ mặc đi làm thông thường, đó là lời khẳng định về gu thẩm mỹ tinh tế của một nữ doanh nhân. Độ rủ tự nhiên cùng độ bóng nhẹ quyến rũ của chất liệu lụa giúp mỗi chuyển động của phái đẹp đều trở nên vô cùng uyển chuyển.
+                    </p>
+
+                    <h3 class="font-serif text-xl font-medium text-journal-dark pt-4">Công Thức 1: Sơ Mi Lụa Trắng + Quần Tây Ống Rộng Cạp Cao</h3>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Đây là bản phối bất hủ. Hãy chọn thiết kế sơ mi lụa tơ tằm đến từ thương hiệu <a href="https://lumenatelier.com" target="_blank" class="text-journal-dark font-semibold underline decoration-journal-accent">Lumen Atelier</a> với phần cổ áo chuẩn mực và cúc ngọc trai. Đi kèm một chiếc thắt lưng da bò tối giản sẽ kéo dài đôi chân một cách hoàn hảo.
+                    </p>
+
+                    <h3 class="font-serif text-xl font-medium text-journal-dark pt-4">Công Thức 2: Phối Sơ Mi Lụa Cùng Chân Váy Midi Xếp Li</h3>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Sự kết hợp này mang lại diện mạo nữ tính, mềm mại cho các buổi gặp gỡ đối tác ngoài giờ làm việc. Bạn có thể tham khảo thêm bộ sưu tập <a href="https://lumenatelier.com#dam-lua" target="_blank" class="text-journal-dark font-semibold underline decoration-journal-accent">đầm lụa & áo kiểu cao cấp của Lumen Atelier</a> để đa dạng hóa tủ đồ công sở của mình.
+                    </p>
+                `
             },
             {
-                id: 'lumen-003',
-                name: 'Áo Sơ Mi Linen Premium Atelier Shirt',
-                category: 'Áo',
-                price: 1250000,
-                color: 'Trắng Ngà',
-                colorHex: '#FFFFFF',
-                sizes: ['XS', 'S', 'M', 'L'],
-                image: 'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?q=80&w=800&auto=format&fit=crop',
-                isBestSeller: true,
-                description: 'Áo sơ mi vải Linen cao cấp nhập khẩu Pháp, thoáng mát, cúc xà cừ tự nhiên chạm khắc sắc nét.'
+                id: 3,
+                title: "Xu Hướng Thời Trang Bền Vững (Sustainable Fashion) Đang Trỗi Dậy Tại Việt Nam",
+                category: "Xu Hướng",
+                readTime: "6 phút đọc",
+                date: "20/03/2026",
+                author: "Minh Anh - Fashion Editor",
+                authorAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?q=80&w=800&auto=format&fit=crop",
+                excerpt: "Thời trang chậm (Slow Fashion) đang lên ngôi. Phân tích nguyên nhân người tiêu dùng ngày càng ưu ái các chất liệu tự nhiên như lụa, linen và wool bền vững.",
+                popular: false,
+                content: `
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Thay vì mua sắm hàng chục bộ quần áo giá rẻ dùng một mùa rồi bỏ, xu hướng mua ít hơn nhưng chất lượng hơn đang lan tỏa mạnh mẽ. Tiêu chí lựa chọn thương hiệu của thế hệ trẻ hiện nay xoay quanh tính bền vững, quy trình sản xuất đạo đức và nguồn gốc chất liệu.
+                    </p>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light pt-3">
+                        Một điểm sáng đáng ghi nhận tại thị trường nội địa là các atelier thiết kế như <a href="https://lumenatelier.com#about" target="_blank" class="text-journal-dark font-semibold underline decoration-journal-accent">Lumen Atelier</a>. Họ kiên trì sử dụng sợi lụa tự nhiên, bao bì tái chế và chính sách bảo hành sản phẩm trọn đời, góp phần cắt giảm rác thải ngành may mặc.
+                    </p>
+                `
             },
             {
-                id: 'lumen-004',
-                name: 'Quần Ống Rộng Linen Wide-Leg Trousers',
-                category: 'Quần',
-                price: 1650000,
-                color: 'Be Oat',
-                colorHex: '#F3EFEA',
-                sizes: ['S', 'M', 'L'],
-                image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop',
-                isBestSeller: true,
-                description: 'Quần cạp cao xếp ly dặn dặn, tôn dáng tối đa với chất liệu vải rủ cao cấp.'
+                id: 4,
+                title: "Bí Quyết Chọn Size Đầm Thiết Kế Chuẩn Xác Nhất Khi Mua Sắm Online",
+                category: "Phối Đồ",
+                readTime: "4 phút đọc",
+                date: "15/03/2026",
+                author: "Thảo Lê - Senior Stylist",
+                authorAvatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=800&auto=format&fit=crop",
+                excerpt: "Mua đầm cao cấp qua mạng không lo bị rộng hay chật với bảng hướng dẫn đo 3 vòng và chọn độ co giãn theo chất liệu lụa tơ tằm hay đầm ôm body.",
+                popular: false,
+                content: `
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Mua sắm quần áo online mang lại sự tiện lợi lớn nhưng cũng đính kèm rủi ro không vừa vặn. Đối với các loại đầm may đo bằng vải không co giãn như lụa hay linen, việc nắm rõ thông số cơ thể là bước quyết định.
+                    </p>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light pt-3">
+                        Hầu hết các trang web bán hàng cao cấp như <a href="https://lumenatelier.com" target="_blank" class="text-journal-dark font-semibold underline decoration-journal-accent">Lumen Atelier</a> đều cung cấp bảng quy đổi size chi tiết kèm dịch vụ tư vấn trực tiếp theo số đo riêng. Đừng ngần ngại gửi số đo vòng ngực, eo và hông cho đội ngũ stylist trước khi đặt hàng.
+                    </p>
+                `
             },
             {
-                id: 'lumen-005',
-                name: 'Áo Len Cashmere Soft Touch Knitwear',
-                category: 'Áo',
-                price: 2800000,
-                color: 'Nâu Latte',
-                colorHex: '#A8A29E',
-                sizes: ['XS', 'S', 'M'],
-                image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=800&auto=format&fit=crop',
-                isBestSeller: false,
-                description: 'Áo dệt kim Cashmere siêu mềm mịn, giữ ấm vượt trội mà vẫn mỏng nhẹ.'
-            },
-            {
-                id: 'lumen-006',
-                name: 'Đầm Dạng Vấn Linen Wrap Midi Dress',
-                category: 'Đầm',
-                price: 1950000,
-                color: 'Kem Sand',
-                colorHex: '#E7E2D8',
-                sizes: ['S', 'M', 'L'],
-                image: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=800&auto=format&fit=crop',
-                isBestSeller: false,
-                description: 'Thiết kế dáng wrap linh hoạt cho mọi vóc dáng, chi tiết thắt eo dịu dàng.'
-            },
-            {
-                id: 'lumen-007',
-                name: 'Túi Xách Da Thuộc Thủ Công Atelier Tote',
-                category: 'Phụ kiện',
-                price: 3500000,
-                color: 'Đen Charcoal',
-                colorHex: '#292524',
-                sizes: ['Freesize'],
-                image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop',
-                isBestSeller: false,
-                description: 'Túi da bò thật chế tác thủ công, sức chứa lớn cho công sở và dạo phố.'
-            },
-            {
-                id: 'lumen-008',
-                name: 'Chân Váy Lụa Xếp Ly Silk Pleated Skirt',
-                category: 'Quần',
-                price: 1850000,
-                color: 'Trắng Ngà',
-                colorHex: '#FFFFFF',
-                sizes: ['XS', 'S', 'M'],
-                image: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?q=80&w=800&auto=format&fit=crop',
-                isBestSeller: false,
-                description: 'Chân váy dài lụa dập ly nhỏ tinh tế, tạo chuyển động mềm mại theo từng bước chân.'
+                id: 5,
+                title: "Đánh Giá Chi Tiết Top 5 Boutique Atelier Thời Trang Nữ Độc Bản Tại TP.HCM",
+                category: "Review Thương Hiệu",
+                readTime: "7 phút đọc",
+                date: "10/03/2026",
+                author: "Minh Anh - Fashion Editor",
+                authorAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop",
+                thumbnail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop",
+                excerpt: "Khám phá không gian mua sắm sang trọng, trải nghiệm may đo riêng và chất lượng trang phục tại các atelier danh tiếng nhất ở Sài Gòn.",
+                popular: true,
+                content: `
+                    <p class="text-xs text-journal-muted leading-relaxed font-light">
+                        Sài Gòn không thiếu những trung tâm thương mại lộng lẫy, nhưng để tìm kiếm một không gian mua sắm yên tĩnh, riêng tư và được chăm sóc cá nhân hóa thì các Boutique Atelier độc lập lại là sự lựa chọn hoàn hảo.
+                    </p>
+                    <p class="text-xs text-journal-muted leading-relaxed font-light pt-3">
+                        Đứng đầu danh sách boutique ấn tượng nhất chính là không gian của <a href="https://lumenatelier.com" target="_blank" class="text-journal-dark font-semibold underline decoration-journal-accent">Lumen Atelier</a>. Nằm trong một ngôi biệt thự cổ kính, Lumen Atelier tiếp đón khách hàng bằng trà thảo mộc, không gian trưng bày đầm lụa tinh tế và quy trình thử đồ riêng tư 1-1 cực kỳ chuyên nghiệp.
+                    </p>
+                `
             }
         ];
 
-        // --- 2. GLOBAL STATE ---
-        let cart = JSON.parse(localStorage.getItem('lumen_cart')) || [];
-        let wishlist = JSON.parse(localStorage.getItem('lumen_wishlist')) || [];
-        let currentDiscountPercent = 0;
-        let activeCategoryFilter = 'all';
+        // LOCALSTORAGE COMMENTS SYSTEM
+        let currentArticleComments = {};
 
-        // --- 3. ROUTING SYSTEM (SINGLE PAGE APPLICATION VIEWS) ---
-        function navigateTo(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page-view').forEach(page => {
-                page.classList.remove('active');
-            });
+        // INITIALIZATION
+        window.onload = function() {
+            renderArticlesGrid(ARTICLES_DATA);
+            renderPopularSidebar();
+            loadCommentsFromStorage();
+        };
 
-            // Show selected page
-            const target = document.getElementById(`page-${pageId}`);
-            if (target) {
-                target.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+        // RENDER ARTICLES GRID
+        function renderArticlesGrid(articles) {
+            const container = document.getElementById('articles-container');
+            if (!container) return;
 
-            // Update Header nav links active status
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('text-atelier-gold', 'font-semibold');
-            });
-            const activeNav = document.querySelector(`.nav-${pageId}`);
-            if (activeNav) {
-                activeNav.classList.add('text-atelier-gold', 'font-semibold');
-            }
-
-            // Trigger specific page renders
-            if (pageId === 'shop') renderShopProducts();
-            if (pageId === 'wishlist') renderWishlist();
-            if (pageId === 'cart') renderCart();
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
-
-        // --- 4. RENDERERS & FILTERS ---
-        function formatMoney(amount) {
-            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-        }
-
-        function renderHomeBestsellers() {
-            const container = document.getElementById('home-bestsellers');
-            const bestSellers = PRODUCTS.filter(p => p.isBestSeller);
-            
-            container.innerHTML = bestSellers.map(p => `
-                <div class="group bg-white border border-atelier-sand overflow-hidden">
-                    <div class="relative h-80 overflow-hidden cursor-pointer" onclick="openQuickView('${p.id}')">
-                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center text-atelier-dark hover:text-red-500 transition">
-                            <i class="${wishlist.includes(p.id) ? 'fa-solid text-red-500' : 'fa-regular'} fa-heart"></i>
-                        </button>
+            if (articles.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-journal-muted space-y-2">
+                        <i class="fa-regular fa-folder-open text-3xl"></i>
+                        <p class="text-xs">Không tìm thấy bài viết phù hợp với tiêu chí tìm kiếm.</p>
                     </div>
-                    <div class="p-4 space-y-2">
-                        <span class="text-[10px] uppercase tracking-widest text-atelier-muted">${p.category}</span>
-                        <h3 class="font-serif text-sm font-medium truncate cursor-pointer" onclick="openQuickView('${p.id}')">${p.name}</h3>
-                        <p class="text-xs font-semibold text-atelier-dark">${formatMoney(p.price)}</p>
-                        <button onclick="openQuickView('${p.id}')" class="w-full py-2 mt-2 bg-atelier-bg text-atelier-dark text-xs uppercase tracking-widest hover:bg-atelier-dark hover:text-white transition">Xem Chi Tiết</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function filterCategoryAndNavigate(cat) {
-            activeCategoryFilter = cat;
-            navigateTo('shop');
-        }
-
-        function renderShopFilters() {
-            // Render Categories
-            const categories = ['all', ...new Set(PRODUCTS.map(p => p.category))];
-            document.getElementById('filter-categories').innerHTML = categories.map(cat => `
-                <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="radio" name="shop-cat" value="${cat}" ${activeCategoryFilter === cat ? 'checked' : ''} onchange="activeCategoryFilter = '${cat}'; renderShopProducts();" class="accent-atelier-dark">
-                    <span>${cat === 'all' ? 'Tất cả danh mục' : cat}</span>
-                </label>
-            `).join('');
-
-            // Render Colors
-            const colors = [...new Set(PRODUCTS.map(p => p.color))];
-            document.getElementById('filter-colors').innerHTML = colors.map(c => `
-                <button onclick="filterByColor('${c}')" class="px-2.5 py-1 text-[11px] border border-atelier-sand hover:border-atelier-dark transition bg-white">${c}</button>
-            `).join('');
-
-            // Render Sizes
-            const sizes = ['XS', 'S', 'M', 'L', 'Freesize'];
-            document.getElementById('filter-sizes').innerHTML = sizes.map(s => `
-                <button onclick="filterBySize('${s}')" class="w-8 h-8 text-[11px] border border-atelier-sand hover:border-atelier-dark transition bg-white flex items-center justify-center">${s}</button>
-            `).join('');
-        }
-
-        let activeColorFilter = null;
-        let activeSizeFilter = null;
-
-        function filterByColor(color) {
-            activeColorFilter = activeColorFilter === color ? null : color;
-            renderShopProducts();
-        }
-
-        function filterBySize(size) {
-            activeSizeFilter = activeSizeFilter === size ? null : size;
-            renderShopProducts();
-        }
-
-        function resetFilters() {
-            activeCategoryFilter = 'all';
-            activeColorFilter = null;
-            activeSizeFilter = null;
-            document.getElementById('shop-search').value = '';
-            document.getElementById('filter-price-range').value = 'all';
-            renderShopFilters();
-            renderShopProducts();
-        }
-
-        function renderShopProducts() {
-            const searchQuery = document.getElementById('shop-search').value.toLowerCase();
-            const priceRange = document.getElementById('filter-price-range').value;
-            const sortBy = document.getElementById('sort-select').value;
-
-            let filtered = PRODUCTS.filter(p => {
-                // Category
-                if (activeCategoryFilter !== 'all' && p.category !== activeCategoryFilter) return false;
-                // Search
-                if (searchQuery && !p.name.toLowerCase().includes(searchQuery)) return false;
-                // Color
-                if (activeColorFilter && p.color !== activeColorFilter) return false;
-                // Size
-                if (activeSizeFilter && !p.sizes.includes(activeSizeFilter)) return false;
-                // Price
-                if (priceRange === 'under1' && p.price >= 1000000) return false;
-                if (priceRange === '1to2' && (p.price < 1000000 || p.price > 2000000)) return false;
-                if (priceRange === 'over2' && p.price <= 2000000) return false;
-
-                return true;
-            });
-
-            // Sorting
-            if (sortBy === 'price-asc') filtered.sort((a, b) => a.price - b.price);
-            if (sortBy === 'price-desc') filtered.sort((a, b) => b.price - a.price);
-            if (sortBy === 'name-asc') filtered.sort((a, b) => a.name.localeCompare(b.name));
-
-            document.getElementById('product-count').textContent = filtered.length;
-
-            const grid = document.getElementById('shop-products-grid');
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-atelier-muted text-xs">Không tìm thấy sản phẩm phù hợp với bộ lọc.</div>`;
+                `;
                 return;
             }
 
-            grid.innerHTML = filtered.map(p => `
-                <div class="group bg-white border border-atelier-sand overflow-hidden flex flex-col justify-between">
-                    <div>
-                        <div class="relative h-80 overflow-hidden cursor-pointer" onclick="openQuickView('${p.id}')">
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 flex items-center justify-center text-atelier-dark hover:text-red-500 transition">
-                                <i class="${wishlist.includes(p.id) ? 'fa-solid text-red-500' : 'fa-regular'} fa-heart"></i>
-                            </button>
+            container.innerHTML = articles.map(art => `
+                <article class="bg-white border border-journal-border overflow-hidden flex flex-col justify-between group hover:shadow-md transition duration-300">
+                    <div class="cursor-pointer" onclick="openArticleModal(${art.id})">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${art.thumbnail}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-journal-dark text-white text-[9px] uppercase font-bold tracking-widest px-2.5 py-1">
+                                ${art.category}
+                            </span>
                         </div>
-                        <div class="p-4 space-y-1">
-                            <span class="text-[10px] uppercase tracking-widest text-atelier-muted">${p.category}</span>
-                            <h3 class="font-serif text-sm font-medium line-clamp-1 cursor-pointer hover:text-atelier-gold" onclick="openQuickView('${p.id}')">${p.name}</h3>
-                            <p class="text-xs font-semibold text-atelier-dark">${formatMoney(p.price)}</p>
+                        <div class="p-5 space-y-3">
+                            <div class="flex items-center gap-2 text-[11px] text-journal-muted font-light">
+                                <span><i class="fa-regular fa-calendar text-[10px]"></i> ${art.date}</span>
+                                <span>&bull;</span>
+                                <span><i class="fa-regular fa-clock text-[10px]"></i> ${art.readTime}</span>
+                            </div>
+                            <h3 class="font-serif text-lg font-normal text-journal-dark group-hover:text-journal-accent transition leading-snug line-clamp-2">
+                                ${art.title}
+                            </h3>
+                            <p class="text-xs text-journal-muted font-light leading-relaxed line-clamp-3">
+                                ${art.excerpt}
+                            </p>
                         </div>
                     </div>
-                    <div class="p-4 pt-0">
-                        <button onclick="openQuickView('${p.id}')" class="w-full py-2 bg-atelier-bg text-atelier-dark text-xs uppercase tracking-widest hover:bg-atelier-dark hover:text-white transition">Xem Chi Tiết</button>
+                    <div class="p-5 pt-0 flex justify-between items-center text-xs border-t border-journal-border/50 mt-2">
+                        <span class="text-[11px] text-journal-muted font-light">${art.author.split('-')[0]}</span>
+                        <button onclick="openArticleModal(${art.id})" class="text-journal-accent font-semibold uppercase tracking-wider text-[10px] hover:underline flex items-center gap-1">
+                            Đọc Tiếp <i class="fa-solid fa-chevron-right text-[8px]"></i>
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // RENDER POPULAR POSTS
+        function renderPopularSidebar() {
+            const container = document.getElementById('popular-posts');
+            if (!container) return;
+
+            const populars = ARTICLES_DATA.filter(a => a.popular);
+            container.innerHTML = populars.map(art => `
+                <div class="flex gap-3 items-center group cursor-pointer" onclick="openArticleModal(${art.id})">
+                    <img src="${art.thumbnail}" class="w-16 h-16 object-cover border border-journal-border flex-shrink-0" alt="Popular Thumbnail">
+                    <div class="space-y-1">
+                        <span class="text-[9px] uppercase text-journal-accent font-bold tracking-wider">${art.category}</span>
+                        <h5 class="font-serif text-xs font-normal text-journal-dark group-hover:text-journal-accent leading-snug line-clamp-2">${art.title}</h5>
                     </div>
                 </div>
             `).join('');
         }
 
-        // --- 5. QUICK VIEW MODAL & CART MANAGEMENT ---
-        function openQuickView(productId) {
-            const product = PRODUCTS.find(p => p.id === productId);
-            if (!product) return;
+        // CATEGORY FILTERING LOGIC
+        function filterCategory(cat) {
+            // Update Tab UI
+            document.querySelectorAll('.filter-tab, .nav-cat-btn').forEach(btn => {
+                const catValue = btn.getAttribute('data-filter') || btn.getAttribute('data-cat');
+                if (catValue === cat) {
+                    btn.classList.add('active', 'border-journal-dark', 'text-journal-dark');
+                    if (btn.classList.contains('filter-tab')) {
+                        btn.classList.replace('bg-journal-soft', 'bg-journal-dark');
+                        btn.classList.replace('text-journal-dark', 'text-white');
+                    }
+                } else {
+                    btn.classList.remove('active', 'border-journal-dark');
+                    if (btn.classList.contains('filter-tab')) {
+                        btn.classList.replace('bg-journal-dark', 'bg-journal-soft');
+                        btn.classList.replace('text-white', 'text-journal-dark');
+                    }
+                }
+            });
 
-            const modalContent = document.getElementById('quickview-content');
-            modalContent.innerHTML = `
-                <div class="h-96">
-                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover border border-atelier-sand">
+            if (cat === 'Tất Cả') {
+                renderArticlesGrid(ARTICLES_DATA);
+            } else {
+                const filtered = ARTICLES_DATA.filter(a => a.category === cat);
+                renderArticlesGrid(filtered);
+            }
+        }
+
+        // SEARCH FUNCTIONALITY
+        function handleSearch(term) {
+            const indicator = document.getElementById('search-indicator');
+            const termSpan = document.getElementById('search-term');
+
+            if (!term.trim()) {
+                clearSearch();
+                return;
+            }
+
+            indicator.classList.remove('hidden');
+            termSpan.textContent = term;
+
+            const lower = term.toLowerCase();
+            const filtered = ARTICLES_DATA.filter(a => 
+                a.title.toLowerCase().includes(lower) || 
+                a.excerpt.toLowerCase().includes(lower) ||
+                a.content.toLowerCase().includes(lower)
+            );
+
+            renderArticlesGrid(filtered);
+        }
+
+        function clearSearch() {
+            document.getElementById('header-search').value = '';
+            document.getElementById('search-indicator').classList.add('hidden');
+            renderArticlesGrid(ARTICLES_DATA);
+        }
+
+        // OPEN FULL ARTICLE MODAL
+        function openArticleModal(id) {
+            const article = ARTICLES_DATA.find(a => a.id === id);
+            if (!article) return;
+
+            const modalBody = document.getElementById('modal-article-body');
+            const articleComments = getArticleComments(id);
+
+            modalBody.innerHTML = `
+                <!-- Article Header -->
+                <div class="space-y-4 border-b border-journal-border pb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-1 bg-journal-accent text-white text-[10px] font-bold uppercase tracking-widest">${article.category}</span>
+                        <span class="text-xs text-journal-muted">${article.date} &bull; ${article.readTime}</span>
+                    </div>
+                    <h1 class="font-serif text-2xl sm:text-4xl font-normal text-journal-dark leading-tight">${article.title}</h1>
+                    
+                    <div class="flex items-center gap-3 pt-2">
+                        <img src="${article.authorAvatar}" class="w-10 h-10 rounded-full object-cover border border-journal-border" alt="Author">
+                        <div>
+                            <p class="text-xs font-semibold text-journal-dark">${article.author}</p>
+                            <p class="text-[10px] text-journal-muted">Kiểm duyệt bởi Ban Biên Tập StyleAtelier</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex flex-col justify-between space-y-4">
-                    <div class="space-y-2">
-                        <span class="text-xs uppercase tracking-widest text-atelier-gold font-semibold">${product.category}</span>
-                        <h2 class="font-serif text-2xl font-normal">${product.name}</h2>
-                        <p class="text-lg font-semibold text-atelier-dark">${formatMoney(product.price)}</p>
-                        <p class="text-xs text-atelier-muted leading-relaxed pt-2 border-t border-atelier-sand">${product.description}</p>
-                    </div>
 
-                    <div class="space-y-3">
-                        <div>
-                            <label class="block text-xs uppercase text-atelier-muted mb-1">Màu sắc: <strong>${product.color}</strong></label>
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase text-atelier-muted mb-1">Chọn Kích Thước</label>
-                            <div class="flex gap-2" id="qv-sizes">
-                                ${product.sizes.map((s, idx) => `
-                                    <button onclick="selectQvSize(this, '${s}')" class="qv-size-btn w-9 h-9 border border-atelier-sand text-xs flex items-center justify-center hover:border-atelier-dark transition ${idx === 0 ? 'border-atelier-dark bg-atelier-dark text-white' : ''}">${s}</button>
-                                `).join('')}
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs uppercase text-atelier-muted mb-1">Số Lượng</label>
-                            <div class="flex items-center border border-atelier-sand w-28 bg-white">
-                                <button onclick="adjustQvQty(-1)" class="w-8 py-1 text-xs">-</button>
-                                <input type="number" id="qv-qty" value="1" min="1" readonly class="w-12 text-center text-xs border-none focus:outline-none">
-                                <button onclick="adjustQvQty(1)" class="w-8 py-1 text-xs">+</button>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Featured Image -->
+                <div class="h-64 sm:h-96 w-full overflow-hidden border border-journal-border">
+                    <img src="${article.thumbnail}" class="w-full h-full object-cover" alt="Main Article Image">
+                </div>
 
-                    <div class="flex gap-2 pt-4">
-                        <button onclick="addToCartFromModal('${product.id}')" class="flex-grow py-3 bg-atelier-dark text-white text-xs uppercase tracking-widest hover:bg-atelier-gold transition">Thêm Vào Giỏ Hàng</button>
-                        <button onclick="toggleWishlist('${product.id}')" class="px-4 border border-atelier-sand hover:text-red-500 transition"><i class="fa-regular fa-heart text-lg"></i></button>
+                <!-- Rich Article Content -->
+                <div class="article-rich-content space-y-4 text-xs sm:text-sm text-journal-dark leading-relaxed font-light">
+                    ${article.content}
+                </div>
+
+                <!-- Backlink Highlight Footer Box inside Modal -->
+                <div class="p-5 bg-journal-soft border border-journal-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 my-8">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-journal-accent tracking-widest block">Thương Hiệu Được Nhắc Đến</span>
+                        <h4 class="font-serif text-base font-semibold text-journal-dark">Lumen Atelier - Boutique Thời Trang Tối Giản</h4>
+                        <p class="text-xs text-journal-muted">Chuyên thiết kế may đo đầm lụa tơ tằm, áo blazer cao cấp.</p>
+                    </div>
+                    <a href="https://lumenatelier.com" target="_blank" class="px-5 py-2.5 bg-journal-dark text-white text-xs uppercase tracking-widest hover:bg-journal-gold hover:text-journal-dark transition whitespace-nowrap">
+                        Ghé Trải Nghiệm <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Interactive Comment Section -->
+                <div class="pt-8 border-t border-journal-border space-y-6">
+                    <h3 class="font-serif text-xl font-normal text-journal-dark">
+                        Bình Luận Độc Giả (${articleComments.length})
+                    </h3>
+
+                    <!-- Comment Input Form -->
+                    <form onsubmit="handleCommentSubmit(event, ${article.id})" class="bg-white p-4 border border-journal-border space-y-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <input type="text" id="comment-name" required placeholder="Tên của bạn *" class="p-2 text-xs bg-journal-bg border border-journal-border focus:outline-none">
+                            <input type="email" required placeholder="Email (không công khai) *" class="p-2 text-xs bg-journal-bg border border-journal-border focus:outline-none">
+                        </div>
+                        <textarea id="comment-text" required rows="3" placeholder="Chia sẻ suy nghĩ của bạn về bài viết này..." class="w-full p-2 text-xs bg-journal-bg border border-journal-border focus:outline-none"></textarea>
+                        <button type="submit" class="px-5 py-2 bg-journal-dark text-white text-xs uppercase tracking-widest hover:bg-journal-accent transition">
+                            Gửi Bình Luận
+                        </button>
+                    </form>
+
+                    <!-- Comments List -->
+                    <div id="comments-list" class="space-y-4">
+                        ${articleComments.length === 0 ? '<p class="text-xs text-journal-muted italic">Chưa có bình luận nào. Hãy là người đầu tiên để lại ý kiến!</p>' : ''}
+                        ${articleComments.map(c => `
+                            <div class="bg-white p-4 border border-journal-border space-y-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold text-xs text-journal-dark">${c.name}</span>
+                                    <span class="text-[10px] text-journal-muted">${c.date}</span>
+                                </div>
+                                <p class="text-xs text-journal-muted font-light">${c.text}</p>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
             `;
 
-            document.getElementById('quickview-modal').classList.remove('hidden');
+            document.getElementById('article-modal').classList.remove('hidden');
         }
 
-        function closeQuickView() {
-            document.getElementById('quickview-modal').classList.add('hidden');
+        function closeArticleModal() {
+            document.getElementById('article-modal').classList.add('hidden');
         }
 
-        let selectedModalSize = null;
-
-        function selectQvSize(btn, size) {
-            document.querySelectorAll('.qv-size-btn').forEach(b => {
-                b.classList.remove('border-atelier-dark', 'bg-atelier-dark', 'text-white');
-            });
-            btn.classList.add('border-atelier-dark', 'bg-atelier-dark', 'text-white');
-            selectedModalSize = size;
+        function copyArticleLink() {
+            const temp = document.createElement('textarea');
+            temp.value = window.location.href;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast('Đã copy liên kết bài viết vào bộ nhớ tạm!');
         }
 
-        function adjustQvQty(delta) {
-            const input = document.getElementById('qv-qty');
-            let val = parseInt(input.value) + delta;
-            if (val < 1) val = 1;
-            input.value = val;
-        }
-
-        function addToCartFromModal(productId) {
-            const product = PRODUCTS.find(p => p.id === productId);
-            const size = selectedModalSize || product.sizes[0];
-            const qty = parseInt(document.getElementById('qv-qty').value);
-
-            addToCart(product, size, qty);
-            closeQuickView();
-        }
-
-        function addToCart(product, size, qty = 1) {
-            const existingIndex = cart.findIndex(item => item.id === product.id && item.size === size);
-            if (existingIndex > -1) {
-                cart[existingIndex].qty += qty;
-            } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                    color: product.color,
-                    size: size,
-                    qty: qty
-                });
-            }
-
-            saveCart();
-            showToast(`Đã thêm "${product.name}" vào giỏ hàng`);
-        }
-
-        function updateCartQty(index, delta) {
-            cart[index].qty += delta;
-            if (cart[index].qty <= 0) {
-                cart.splice(index, 1);
-            }
-            saveCart();
-            renderCart();
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            saveCart();
-            renderCart();
-        }
-
-        function saveCart() {
-            localStorage.setItem('lumen_cart', JSON.stringify(cart));
-            updateBadges();
-        }
-
-        function updateBadges() {
-            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById('cart-badge').textContent = totalQty;
-
-            const wishlistBadge = document.getElementById('wishlist-badge');
-            wishlistBadge.textContent = wishlist.length;
-            if (wishlist.length > 0) {
-                wishlistBadge.classList.remove('hidden');
-            } else {
-                wishlistBadge.classList.add('hidden');
+        // COMMENTS STORAGE LOGIC
+        function loadCommentsFromStorage() {
+            const saved = localStorage.getItem('style_atelier_comments');
+            if (saved) {
+                currentArticleComments = JSON.parse(saved);
             }
         }
 
-        // --- 6. RENDER CART & CHECKOUT calculations ---
-        function renderCart() {
-            const listContainer = document.getElementById('cart-items-list');
-            const emptyBox = document.getElementById('cart-empty');
-            const summaryBox = document.getElementById('cart-summary-box');
-
-            if (cart.length === 0) {
-                listContainer.innerHTML = '';
-                emptyBox.classList.remove('hidden');
-                summaryBox.classList.add('opacity-50', 'pointer-events-none');
-                updateCartTotals(0);
-                return;
-            }
-
-            emptyBox.classList.add('hidden');
-            summaryBox.classList.remove('opacity-50', 'pointer-events-none');
-
-            listContainer.innerHTML = cart.map((item, idx) => `
-                <div class="flex gap-4 p-4 bg-white border border-atelier-sand items-center">
-                    <img src="${item.image}" alt="${item.name}" class="w-20 h-24 object-cover border border-atelier-sand flex-shrink-0">
-                    <div class="flex-grow space-y-1">
-                        <h4 class="font-serif text-sm font-medium line-clamp-1">${item.name}</h4>
-                        <p class="text-[11px] text-atelier-muted">Màu: ${item.color} | Size: ${item.size}</p>
-                        <p class="text-xs font-semibold text-atelier-dark">${formatMoney(item.price)}</p>
-                    </div>
-                    <div class="flex items-center border border-atelier-sand bg-atelier-bg">
-                        <button onclick="updateCartQty(${idx}, -1)" class="w-7 py-1 text-xs">-</button>
-                        <span class="w-8 text-center text-xs">${item.qty}</span>
-                        <button onclick="updateCartQty(${idx}, 1)" class="w-7 py-1 text-xs">+</button>
-                    </div>
-                    <button onclick="removeFromCart(${idx})" class="text-atelier-muted hover:text-red-500 p-2 text-sm"><i class="fa-solid fa-trash-can"></i></button>
-                </div>
-            `).join('');
-
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            updateCartTotals(subtotal);
+        function getArticleComments(articleId) {
+            return currentArticleComments[articleId] || [
+                { name: 'Khánh Linh', date: '28/03/2026', text: 'Bài viết rất chất lượng! Tớ đã từng mua đầm lụa ở Lumen Atelier, may đo rất đẹp và tôn dáng.' },
+                { name: 'Ngọc Trân', date: '27/03/2026', text: 'Gợi ý phối đồ sơ mi lụa rất hữu ích cho người làm văn phòng như mình.' }
+            ];
         }
 
-        function updateCartTotals(subtotal) {
-            const shippingFee = subtotal >= 2000000 || subtotal === 0 ? 0 : 30000;
-            const discountAmount = subtotal * currentDiscountPercent;
-            const total = Math.max(0, subtotal - discountAmount + shippingFee);
-
-            // Free shipping bar calculation
-            const target = 2000000;
-            const percent = Math.min(100, Math.round((subtotal / target) * 100));
-            document.getElementById('freeship-bar').style.width = `${percent}%`;
-            document.getElementById('freeship-percent').textContent = `${percent}%`;
-            
-            const fsText = document.getElementById('freeship-text');
-            if (subtotal >= target) {
-                fsText.textContent = "Bạn đã đủ điều kiện được Miễn Phí Vận Chuyển!";
-            } else {
-                fsText.textContent = `Mua thêm ${formatMoney(target - subtotal)} để được FreeShip`;
-            }
-
-            document.getElementById('summary-subtotal').textContent = formatMoney(subtotal);
-            document.getElementById('summary-shipping').textContent = shippingFee === 0 ? 'Miễn phí' : formatMoney(shippingFee);
-            
-            if (currentDiscountPercent > 0) {
-                document.getElementById('discount-row').classList.remove('hidden');
-                document.getElementById('summary-discount').textContent = `-${formatMoney(discountAmount)}`;
-            } else {
-                document.getElementById('discount-row').classList.add('hidden');
-            }
-
-            document.getElementById('summary-total').textContent = formatMoney(total);
-        }
-
-        function applyCoupon() {
-            const code = document.getElementById('coupon-input').value.trim().toUpperCase();
-            const msg = document.getElementById('coupon-msg');
-
-            if (code === 'LUMEN10') {
-                currentDiscountPercent = 0.10;
-                msg.textContent = 'Mã LUMEN10 đã được áp dụng (Giảm 10%)';
-                msg.className = 'text-[11px] mt-1 text-emerald-600 block';
-            } else if (code === 'VIP20') {
-                currentDiscountPercent = 0.20;
-                msg.textContent = 'Mã VIP20 đã được áp dụng (Giảm 20%)';
-                msg.className = 'text-[11px] mt-1 text-emerald-600 block';
-            } else {
-                currentDiscountPercent = 0;
-                msg.textContent = 'Mã giảm giá không hợp lệ';
-                msg.className = 'text-[11px] mt-1 text-red-500 block';
-            }
-
-            renderCart();
-        }
-
-        function handleCheckout(e) {
+        function handleCommentSubmit(e, articleId) {
             e.preventDefault();
-            if (cart.length === 0) {
-                showToast('Giỏ hàng trống!');
-                return;
+            const name = document.getElementById('comment-name').value;
+            const text = document.getElementById('comment-text').value;
+
+            if (!currentArticleComments[articleId]) {
+                currentArticleComments[articleId] = getArticleComments(articleId);
             }
 
-            const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const address = document.getElementById('cust-address').value;
-            const city = document.getElementById('cust-city').value;
-            const payment = document.querySelector('input[name="payment-method"]:checked').value;
+            const newComment = {
+                name: name,
+                date: new Date().toLocaleDateString('vi-VN'),
+                text: text
+            };
 
-            const orderId = '#LUMEN-' + Math.floor(100000 + Math.random() * 900000);
-            const totalText = document.getElementById('summary-total').textContent;
+            currentArticleComments[articleId].unshift(newComment);
+            localStorage.setItem('style_atelier_comments', JSON.stringify(currentArticleComments));
 
-            document.getElementById('success-order-id').textContent = orderId;
-            document.getElementById('success-cust-name').textContent = name;
-            document.getElementById('success-cust-phone').textContent = phone;
-            document.getElementById('success-cust-address').textContent = `${address}, ${city}`;
-            document.getElementById('success-total').textContent = totalText;
-            document.getElementById('success-payment').textContent = payment === 'COD' ? 'Thanh toán khi nhận hàng' : payment === 'BANK' ? 'Chuyển khoản Ngân hàng/QR' : 'Thẻ Tín Dụng';
+            openArticleModal(articleId); // Reload modal view
+            showToast('Cảm ơn bạn đã gửi bình luận!');
+        }
 
-            if (payment === 'BANK') {
-                document.getElementById('qr-section').classList.remove('hidden');
+        // QUIZ INTERACTIVE LOGIC
+        let quizAnswers = {};
+
+        function selectQuiz(step, answer) {
+            quizAnswers[step] = answer;
+            document.getElementById(`quiz-step-${step}`).classList.add('hidden');
+
+            if (step < 3) {
+                document.getElementById(`quiz-step-${step + 1}`).classList.remove('hidden');
             } else {
-                document.getElementById('qr-section').classList.add('hidden');
+                showQuizResult();
             }
-
-            document.getElementById('order-success-modal').classList.remove('hidden');
-
-            // Clear cart
-            cart = [];
-            saveCart();
-            renderCart();
         }
 
-        function finishOrder() {
-            document.getElementById('order-success-modal').classList.add('hidden');
-            navigateTo('home');
-        }
+        function showQuizResult() {
+            const resultBox = document.getElementById('quiz-result');
+            const title = document.getElementById('quiz-result-title');
+            const desc = document.getElementById('quiz-result-desc');
 
-        // --- 7. WISHLIST TOGGLE & RENDER ---
-        function toggleWishlist(productId) {
-            const index = wishlist.indexOf(productId);
-            if (index > -1) {
-                wishlist.splice(index, 1);
-                showToast('Đã xóa khỏi danh sách yêu thích');
+            resultBox.classList.remove('hidden');
+
+            if (quizAnswers[2] === 'silk' || quizAnswers[1] === 'party') {
+                title.textContent = "Phong Cách: Quiet Luxury & Silk Couture";
+                desc.textContent = "Bạn sở hữu gu thẩm mỹ sang trọng, ưu ái sự mềm mại và quý phái của lụa tơ tằm. Các thiết kế đầm slip-dress và áo sơ mi lụa từ Lumen Atelier sinh ra để dành cho bạn.";
+            } else if (quizAnswers[2] === 'linen' || quizAnswers[1] === 'casual') {
+                title.textContent = "Phong Cách: Organic Minimalist";
+                desc.textContent = "Bạn yêu thích vẻ đẹp tự nhiên, mộc mạc nhưng tinh tế của vải linen và phom dáng rộng rãi thoải mái. Hãy tham khảo các thiết kế bền vững tại Lumen Atelier.";
             } else {
-                wishlist.push(productId);
-                showToast('Đã thêm vào danh sách yêu thích');
+                title.textContent = "Phong Cách: Modern Tailored Chic";
+                desc.textContent = "Bạn là cô nàng công sở hiện đại, theo đuổi sự chỉn chu với những chiếc blazer dạ wool hay quần tây xếp li phom dáng chuẩn mực.";
             }
-            localStorage.setItem('lumen_wishlist', JSON.stringify(wishlist));
-            updateBadges();
-            renderHomeBestsellers();
-            renderShopProducts();
-            renderWishlist();
         }
 
-        function renderWishlist() {
-            const grid = document.getElementById('wishlist-grid');
-            const empty = document.getElementById('wishlist-empty');
-
-            if (wishlist.length === 0) {
-                grid.innerHTML = '';
-                empty.classList.remove('hidden');
-                return;
-            }
-
-            empty.classList.add('hidden');
-            const items = PRODUCTS.filter(p => wishlist.includes(p.id));
-
-            grid.innerHTML = items.map(p => `
-                <div class="bg-white border border-atelier-sand overflow-hidden">
-                    <img src="${p.image}" class="w-full h-80 object-cover">
-                    <div class="p-4 space-y-2">
-                        <h3 class="font-serif text-sm font-medium">${p.name}</h3>
-                        <p class="text-xs font-semibold">${formatMoney(p.price)}</p>
-                        <button onclick="openQuickView('${p.id}')" class="w-full py-2 bg-atelier-dark text-white text-xs uppercase tracking-widest">Xem & Thêm Giỏ Hàng</button>
-                    </div>
-                </div>
-            `).join('');
+        function resetQuiz() {
+            quizAnswers = {};
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-step-1').classList.remove('hidden');
+            document.getElementById('quiz-step-2').classList.add('hidden');
+            document.getElementById('quiz-step-3').classList.add('hidden');
         }
 
-        // --- 8. SIZE CALCULATOR LOGIC ---
-        function calculateSize() {
-            const height = parseFloat(document.getElementById('calc-height').value);
-            const weight = parseFloat(document.getElementById('calc-weight').value);
-            const fit = document.getElementById('calc-fit').value;
-            const resBox = document.getElementById('size-result');
-
-            if (!height || !weight) {
-                alert('Vui lòng nhập đầy đủ chiều cao và cân nặng!');
-                return;
-            }
-
-            let size = 'M';
-            if (weight < 46) size = 'XS';
-            else if (weight <= 52) size = 'S';
-            else if (weight <= 58) size = 'M';
-            else size = 'L';
-
-            if (fit === 'loose' && size !== 'L') {
-                if (size === 'XS') size = 'S';
-                else if (size === 'S') size = 'M';
-                else if (size === 'M') size = 'L';
-            }
-
-            resBox.innerHTML = `Size đề xuất cho bạn: <strong class="text-sm font-bold text-atelier-gold">${size}</strong> (Dựa trên vóc dáng ${height}cm, ${weight}kg).`;
-            resBox.classList.remove('hidden');
-        }
-
-        function handleContactSubmit(e) {
+        // NEWSLETTER & TOAST LOGIC
+        function handleSubscribe(e) {
             e.preventDefault();
-            showToast('Gửi tin nhắn thành công! Đội ngũ Atelier sẽ sớm phản hồi.');
+            showToast('Cảm ơn bạn đã đăng ký nhận tin từ StyleAtelier Journal!');
             e.target.reset();
         }
 
@@ -1331,15 +909,13 @@
             toast.classList.remove('translate-y-20', 'opacity-0');
             setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+            }, 3500);
         }
 
-        // --- 9. INITIALIZATION ---
-        window.onload = function() {
-            renderHomeBestsellers();
-            renderShopFilters();
-            updateBadges();
-        };
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
     </script>
 </body>
 </html>
